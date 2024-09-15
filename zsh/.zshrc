@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------------------------------
 # PLUGINS
 
-source $HOME/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source $HOME/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source $HOME/.zsh_plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[[A' history-substring-search-up

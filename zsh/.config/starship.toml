@@ -28,15 +28,15 @@ style = "bright-black"
 style= "bright-black"
 
 [git_status]
-format = "[[(*$conflicted$untracked$modified$renamed$deleted)](white) ($staged  )($ahead_behind  )($stashed)]($style)"
+format = "[[(*$conflicted$untracked$modified$renamed$deleted)](white) ($conflicted  )($staged  )($ahead_behind  )($stashed)]($style)"
 style = "bright-black"
-ahead = '${count}[🡑](white)'
-behind = '£{count}[🡓](white)'
-diverged = '${count}[🡙](white)'
-conflicted = "​"
+ahead = '[](white)${count}'
+behind = '[](white)${count}'
+diverged = '[](white)${count}'
+conflicted = "[✕]${count}"
 untracked = "​"
 modified = "​"
-staged = "${count}[](white)"
+staged = "[+](white)${count}"
 renamed = "​"
 deleted = "​"
-stashed = "${count}[](white)"
+stashed = "[≡](white)${count}"

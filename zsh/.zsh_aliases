@@ -29,3 +29,25 @@ alias gpf="git push --force-with-lease"
 
 alias gs="git stash"
 alias gsp="git stash pop"
+
+# ----------------------------------------------------------------------------------------------------
+# Pendo
+alias pendoserver="dev_appserver.py --storage_path='${PENDO_STORAGE}' --datastore_consistency_policy=consistent '${HOME}/pendo-appengine/modules/appengine/app.yaml'"
+alias coverage="cd ~/dev/pendo-appengine && npm run test:unit:jest -- --collectCoverageFrom=\*\*/roadmaps/\*\*/\* --testPathPattern=roadmaps --collectCoverage"
+alias lint="cd ~/dev/pendo-appengine && npm run lint:changed"
+alias jest="cd ~/dev/pendo-appengine && npm run test:unit:jest -- --watch"
+alias cypresslocal="cd ~/dev/pendo-appengine && npm run test:e2e -- --serverless --env=freeze --url=https://local.pendo.io:3000"
+alias cypressmocked="cd ~/dev/pendo-appengine && NODE_ENV=development npm run test:e2e -- --mocked"
+alias cypressremote="cd ~/dev/pendo-appengine && npm run test:e2e:ci"
+alias showaliases="cat ~/.zsh_aliases"
+alias editaliases="vim ~/.zsh_aliases"
+
+localenv() {
+  local env="${1:-freeze}"
+  npm run start --env="$env"
+}
+lookaside() {
+  local branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+  cd ~/dev/pendo-appengine && npm run engage:lookaside -- --env=freeze --version="$branch_name"
+}

@@ -1,0 +1,39 @@
+[alias]
+	fetch = ! "git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
+	glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	recent = branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"
+	rlog = "!git --no-pager log --decorate --pretty=oneline --abbrev-commit --color=always| less -N"
+	stash-all = stash save --include-untracked
+	undo = reset --soft HEAD^
+[branch]
+	sort = -committerdate
+[commit]
+	gpgSign = true
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore.global
+[diff]
+	colorMoved = default
+	colorMovedWS = allow-indentation-change
+	external = difft
+[fetch]
+	prune = true
+[help]
+	autocorrect = prompt
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	default = simple
+[rerere]
+	enabled = true
+[transfer]
+	fsckobjects = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[user]
+	email = francis.gurr@gmail.com
+	name = Francis-Gurr
+	signingkey = 0E5D6DB4C588E23F

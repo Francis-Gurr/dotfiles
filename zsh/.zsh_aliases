@@ -1,0 +1,24 @@
+alias ls="lsd"
+
+# ----------------------------------------------------------------------------------------------------
+# Git
+alias gco="git checkout"
+
+alias g="git status"
+
+alias gd="git diff"
+alias gd="git diff --staged"
+
+alias ga="git add"
+alias gaa="git add --all"
+alias gap="git add --patch"
+
+alias gc="git commit"
+alias gca="git commit --amend"
+alias gcane="git commit --amend --no-edit"
+
+alias gp="git push"
+alias gpf="git push --force-with-lease"
+
+alias gs="git stash"
+alias gsp="git stash pop"

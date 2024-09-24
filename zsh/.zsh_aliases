@@ -18,8 +18,10 @@ alias gaa="git add --all"
 alias gap="git add --patch"
 
 alias gc="git commit"
-gcm() {
-	git commit -m "$1"
+gcm () {
+  local branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+  git commit -m "$branch_name $*"
 }
 alias gca="git commit --amend"
 alias gcane="git commit --amend --no-edit"
@@ -39,8 +41,6 @@ alias jest="cd ~/dev/pendo-appengine && npm run test:unit:jest -- --watch"
 alias cypresslocal="cd ~/dev/pendo-appengine && npm run test:e2e -- --serverless --env=freeze --url=https://local.pendo.io:3000"
 alias cypressmocked="cd ~/dev/pendo-appengine && NODE_ENV=development npm run test:e2e -- --mocked"
 alias cypressremote="cd ~/dev/pendo-appengine && npm run test:e2e:ci"
-alias showaliases="cat ~/.zsh_aliases"
-alias editaliases="vim ~/.zsh_aliases"
 
 localenv() {
   local env="${1:-freeze}"

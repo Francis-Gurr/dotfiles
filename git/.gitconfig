@@ -7,8 +7,6 @@
 	undo = reset --soft HEAD^
 [branch]
 	sort = -committerdate
-[commit]
-	gpgSign = true
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore.global
@@ -36,4 +34,3 @@
 [user]
 	email = francis.gurr@gmail.com
 	name = Francis-Gurr
-	signingkey = 0E5D6DB4C588E23F

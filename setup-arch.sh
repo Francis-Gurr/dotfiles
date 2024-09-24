@@ -7,7 +7,34 @@ RESET="\033[0m"
 # 1. Install packages using pacman
 echo -e "${GREEN}1. Installing Zsh and plugins via pacman${RESET}"
 
-sudo pacman -S --noconfirm stow wezterm ttf-nerd-fonts-symbols-mono ttf-firacode-nerd neovim bat lsd zsh zsh-autosuggestions zsh-completions zsh-history-substring-search zsh-syntax-highlighting starship
+zsh_packages=(
+    zsh
+    zsh-autosuggestions
+    zsh-completions
+    zsh-history-substring-search
+    zsh-syntax-highlighting
+    starship
+)
+
+wezterm_packages=(
+    wezterm
+    ttf-nerd-fonts-symbols-mono
+    ttf-firacode-nerd
+)
+
+git_packages=(
+    git
+    less
+    difftastic
+)
+
+other_packages=(
+    stow
+    bat
+    lsd
+)
+
+sudo pacman -S --noconfirm "${zsh_packages[@]}" "${wezterm_packages[@]}" "${git_packages[@]}" "${other_packages}" 
 
 # 2. GNU stow the configuration from ~/.dotfiles/zsh to the home folder
 echo -e "${GREEN}2. Stowing Zsh configuration from ~/.dotfiles/zsh to home directory${RESET}"

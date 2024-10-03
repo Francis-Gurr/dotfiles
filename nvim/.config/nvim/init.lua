@@ -14,4 +14,4 @@ require("keymaps")
 require("autocmds")
 
 -- Bootstrap and configure lazy.nvim plugin manager
-require("lazy") -- This will handle plugin loading
+require("bootstrap-lazy") -- This will handle plugin loading

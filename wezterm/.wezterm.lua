@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.color_scheme = "Dracula (Official)"
+config.color_scheme = "Tokyo Night"
 
 config.font = wezterm.font("Fira Code Nerd Font")
 config.font_size = 12.0

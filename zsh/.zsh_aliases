@@ -1,4 +1,5 @@
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
+alias nvim-modular='NVIM_APPNAME="nvim-modular" nvim'
 
 alias ls="lsd"
 

@@ -6,12 +6,15 @@
       pacman:
         name:
           - git
-          - xclip # To copy public key to clipboard
+          - wl-clipboard # To copy public key to clipboard
         state: present
         update_cache: yes
 
+    - name: Stow git configuration
+      command: "stow -d ~/.dotfiles -t ~/ git"
+
     - name: Check if SSH connection to GitHub already exists
-      command: ssh -T git@github.com
+      command: ssh -o StrictHostKeyChecking=no -T git@github.com
       register: ssh_check
       ignore_errors: true
 
@@ -21,11 +24,10 @@
           args:
             creates: ~/.ssh/id_ed25519
 
-        - name: Start the SSH agent
-          shell: eval "$(ssh-agent -s)"
-
-        - name: Add SSH key to SSH agent
-          command: ssh-add ~/.ssh/id_ed25519
+        - name: Start the SSH agent and add SSH key
+          shell: |
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/id_ed25519
 
         - name: Read the public SSH key
           command: cat ~/.ssh/id_ed25519.pub
@@ -36,7 +38,7 @@
             msg: "{{ ssh_public_key.stdout }}"
 
         - name: Copy public key to clipboard
-          command: echo "{{ ssh_public_key.stdout }}" | xclip -selection clipboard
+          command: echo "{{ ssh_public_key.stdout }}" | wl-copy
 
         - name: Pause and prompt to add SSH key to GitHub
           pause:
@@ -45,6 +47,7 @@
         - name: Check SSH connection to GitHub
           command: ssh -o StrictHostKeyChecking=no -T git@github.com
           register: post_add_connection_check
+          ignore_errors: true
 
         - name: Fail if SSH connection to GitHub fails
           fail:

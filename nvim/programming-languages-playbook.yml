@@ -16,10 +16,14 @@
         state: present
         update_cache: yes
 
-    - name: Install pnpm using npm
+    - name: Install "pnpm" using npm
+      become: true
       npm:
+        name: pnpm
         global: yes
         state: present
 
     - name: Run pnpm setup
-      command: pnpm setup
+      shell: pnpm setup
+      args:
+        executable: /usr/bin/zsh

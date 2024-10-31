@@ -12,7 +12,7 @@
           - unzip
           - gcc
           - ripgrep
-          - xclip
+          - wl-clipboard
           - git
           - tar # Treesitter requirement
           - curl # Treesitter, mason requirement

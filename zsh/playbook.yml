@@ -18,9 +18,7 @@
       command: "stow -d ~/.dotfiles -t ~/ zsh"
 
     - name: Switch default shell to zsh
+      become: true
       user:
         name: "{{ ansible_user_id }}"
         shell: /usr/bin/zsh
-
-    # - name: Start zsh shell (optional)
-    #   shell: 'exec zsh'

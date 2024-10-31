@@ -1,0 +1,15 @@
+- name: Install and configure fuzzel
+  hosts: localhost
+  tasks:
+    - name: Install fuzzel and dependencies
+      become: true
+      pacman:
+        name:
+          - fuzzel
+          - papirus-icon-theme
+          - ttf-firacode-nerd
+        state: present
+        update_cache: yes
+
+    - name: Stow fuzzel configuration
+      command: "stow -d ~/.dotfiles -t ~/ fuzzel"

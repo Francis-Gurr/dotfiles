@@ -3,6 +3,8 @@ alias nvim-modular='NVIM_APPNAME="nvim-modular" nvim'
 
 alias ls="lsd"
 
+alias cp="xclip -selection clipboard"
+
 # ----------------------------------------------------------------------------------------------------
 # Git
 alias gco="git checkout"

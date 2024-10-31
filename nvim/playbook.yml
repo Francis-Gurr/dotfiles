@@ -1,0 +1,40 @@
+- import_playbook: programming-languages-playbook.yml
+
+- name: Install and configure neovim
+  hosts: localhost
+  tasks:
+    - name: Install nvim and dependencies
+      become: true
+      pacman:
+        name:
+          - neovim
+          - make
+          - unzip
+          - gcc
+          - ripgrep
+          - xclip
+          - git
+          - tar # Treesitter requirement
+          - curl # Treesitter, mason requirement
+          - fd # Telescope optional requirement
+          - python-pynvim # Python 3 provider requirement
+          - ttf-firacode-nerd # Nerd font
+        state: present
+        update_cache: yes
+
+    - name: Install "neovim" npm package
+      become: true
+      npm:
+        name: neovim
+        state: present
+        global: yes
+
+    - name: Install "tree-sitter-cli" npm package
+      become: true
+      npm:
+        name: tree-sitter-cli
+        state: present
+        global: yes
+
+    - name: Stow nvim configuration
+      command: "stow -d ~/.dotfiles -t ~ nvim"

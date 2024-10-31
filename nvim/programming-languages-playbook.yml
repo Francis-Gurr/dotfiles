@@ -1,0 +1,25 @@
+- name: Install and setup common languages
+  hosts: localhost
+  tasks:
+    - name: Install Node.js, npm, go, gopls, python, python-pip, lua
+      become: true
+      pacman:
+        name:
+          - nodejs
+          - npm
+          - go
+          - gopls
+          - python
+          - python-pip
+          - lua
+          - luarocks
+        state: present
+        update_cache: yes
+
+    - name: Install pnpm using npm
+      npm:
+        global: yes
+        state: present
+
+    - name: Run pnpm setup
+      command: pnpm setup

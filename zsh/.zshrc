@@ -1,4 +1,9 @@
 # ----------------------------------------------------------------------------------------------------
+# ALIASES
+
+source $HOME/.zsh_aliases
+
+# ----------------------------------------------------------------------------------------------------
 # SECRETS
 
 source $HOME/.zsh_secrets
@@ -17,3 +22,18 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fpath=(/usr/share/zsh/site-functions $fpath)
 
 eval "$(starship init zsh)"
+
+# ----------------------------------------------------------------------------------------------------
+# OTHER
+
+# Enable autocompletion
+autoload -Uz compinit
+compinit
+
+# pnpm
+export PNPM_HOME="/home/francis/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

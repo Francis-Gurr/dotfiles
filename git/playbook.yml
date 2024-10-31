@@ -1,0 +1,54 @@
+- name: Install and configure zsh
+  hosts: localhost
+  tasks:
+    - name: Install git
+      become: true
+      pacman:
+        name:
+          - git
+          - xclip # To copy public key to clipboard
+        state: present
+        update_cache: yes
+
+    - name: Check if SSH connection to GitHub already exists
+      command: ssh -T git@github.com
+      register: ssh_check
+      ignore_errors: true
+
+    - block:
+        - name: Generate SSH key (ed25519)
+          command: ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -C "francis.gurr@gmail.com" -N ""
+          args:
+            creates: ~/.ssh/id_ed25519
+
+        - name: Start the SSH agent
+          shell: eval "$(ssh-agent -s)"
+
+        - name: Add SSH key to SSH agent
+          command: ssh-add ~/.ssh/id_ed25519
+
+        - name: Read the public SSH key
+          command: cat ~/.ssh/id_ed25519.pub
+          register: ssh_public_key
+
+        - name: Display the public key for copying
+          debug:
+            msg: "{{ ssh_public_key.stdout }}"
+
+        - name: Copy public key to clipboard
+          command: echo "{{ ssh_public_key.stdout }}" | xclip -selection clipboard
+
+        - name: Pause and prompt to add SSH key to GitHub
+          pause:
+            prompt: "Add the following SSH key to Github (https://github.com/settings/keys):\n\n{{ ssh_public_key.stdout }}\n\n(It should already be in your clipboard)\n\nPress enter to continue"
+
+        - name: Check SSH connection to GitHub
+          command: ssh -o StrictHostKeyChecking=no -T git@github.com
+          register: post_add_connection_check
+
+        - name: Fail if SSH connection to GitHub fails
+          fail:
+            msg: "SSH connection to GitHub failed. Please ensure the SSH key was added correctly."
+          when: "'successfully authenticated' not in post_add_connection_check.stderr"
+
+      when: "'successfully authenticated' not in ssh_check.stderr" # Skip if already authenticated

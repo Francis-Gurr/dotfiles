@@ -1,0 +1,15 @@
+- name: Install and configure wezterm
+  hosts: localhost
+  tasks:
+    - name: Install wezterm and dependencies
+      become: true
+      pacman:
+        name:
+          - wezterm
+          - ttf-nerd-fonts-symbols-mono
+          - ttf-firacode-nerd
+        state: present
+        update_cache: yes
+
+    - name: Stow wezterm configuration
+      command: "stow -d ~/.dotfiles -t ~/ wezterm"

@@ -1,0 +1,26 @@
+- name: Install and configure zsh
+  hosts: localhost
+  tasks:
+    - name: Install zsh and zsh plugins
+      become: true
+      pacman:
+        name:
+          - zsh
+          - zsh-autosuggestions
+          - zsh-completions
+          - zsh-history-substring-search
+          - zsh-syntax-highlighting
+          - starship
+        state: present
+        update_cache: yes
+
+    - name: Stow zsh configuration
+      command: "stow -d ~/.dotfiles -t ~/ zsh"
+
+    - name: Switch default shell to zsh
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: /usr/bin/zsh
+
+    # - name: Start zsh shell (optional)
+    #   shell: 'exec zsh'

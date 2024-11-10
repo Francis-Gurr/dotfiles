@@ -1,0 +1,34 @@
+- name: Install and configure greetd and tuigreet
+  hosts: localhost
+  tasks:
+    - name: Install greetd and tuigreet
+      become: true
+      pacman:
+        name:
+          - greetd
+          - greetd-tuigreet
+        state: present
+        update_cache: yes
+
+    - name: Remove default greetd config.toml
+      become: true
+      file:
+        path: /etc/greetd/config.toml
+        state: absent
+
+    - name: Stow greetd configuration
+      become: true
+      command: "stow -d /home/francis/.dotfiles -t / greetd"
+
+    - name: Remove the existing display manager symlink
+      become: true
+      file:
+        path: /etc/systemd/system/display-manager.service
+        state: absent
+
+    - name: Enable and start greetd.service
+      become: true
+      systemd:
+        name: greetd.service
+        enabled: true
+        state: started

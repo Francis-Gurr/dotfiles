@@ -1,0 +1,129 @@
+* {
+    font-family: Fira Code Nerd Font;
+    font-size: 16px;
+}
+
+window#waybar {
+    color: #C0CAF5;
+    background-color: #1A1B26;
+}
+
+tooltip {
+    background-color: #1A1B26;
+    border-radius: 0;
+    border: 1px solid #7AA2F7;
+}
+
+
+#pulseaudio:hover {
+    background-color: #a37800;
+}
+
+#workspaces button {
+    color: #C0CAF5;
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: none;
+}
+
+#workspaces button.focused {
+    /* background-color: #a9b1d6; */
+    color: #7AA2F7;
+    box-shadow: inset 0 3px #7AA2F7;
+}
+
+#workspaces button.visible {
+    color: #7AA2F7;
+}
+
+#workspaces button.empty {
+    color: #565f89;
+}
+
+#mode {
+    background-color: #64727D;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+
+#clock.calendar {
+    font-family: Fira Code Nerd Font;
+}
+
+#network.disconnected {
+    color: #F7768E;
+}
+
+#custom-cpu.warning,
+#custom-gpu.warning {
+    color: #E0AF68
+}
+
+#custom-cpu.critical,
+#custom-gpu.critical {
+    color: #F7768E
+}
+
+#custom-media {
+    background-color: #66cc99;
+    color: #2a5c45;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+    background-color: #ffa000;
+}
+
+#keyboard-state {
+    background: #97e1ad;
+    color: #000000;
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#scratchpad.empty {
+	background-color: transparent;
+}
+
+#privacy {
+    padding: 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+    color: white;
+}
+
+#privacy-item.screenshare {
+    background-color: #cf5700;
+}
+
+#privacy-item.audio-in {
+    background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+    background-color: #0069d4;
+}

@@ -30,6 +30,8 @@ eval "$(starship init zsh)"
 autoload -Uz compinit
 compinit
 
+# add npm global binaries to path
+
 # pnpm
 export PNPM_HOME="/home/francis/.local/share/pnpm"
 case ":$PATH:" in

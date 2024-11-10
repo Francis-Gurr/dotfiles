@@ -17,6 +17,7 @@
           - tar # Treesitter requirement
           - curl # Treesitter, mason requirement
           - fd # Telescope optional requirement
+          - python-pylatexenc # Render Markdown requirement
           - python-pynvim # Python 3 provider requirement
           - ttf-firacode-nerd # Nerd font
         state: present
@@ -33,6 +34,13 @@
       become: true
       npm:
         name: tree-sitter-cli
+        state: present
+        global: yes
+
+    - name: Install "markdownlint" npm package
+      become: true
+      npm:
+        name: markdownlint
         state: present
         global: yes
 

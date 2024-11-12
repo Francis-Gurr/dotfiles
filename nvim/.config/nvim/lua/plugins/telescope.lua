@@ -48,6 +48,7 @@ return {
 			--
 			defaults = {
 				path_display = { "smart" },
+				dynamic_preview_title = true,
 				--   mappings = {
 				--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 				--   },

@@ -67,3 +67,7 @@ vim.opt.tabstop = 4 -- A tab character visually represents 4 spaces
 vim.opt.shiftwidth = 4 -- Indentation (>> and <<) uses 4 spaces
 vim.opt.softtabstop = 4 -- Pressing Tab in insert mode inserts/removes 4 spaces
 vim.opt.expandtab = true -- Convert tabs to spaces
+
+-- Spell checking
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"

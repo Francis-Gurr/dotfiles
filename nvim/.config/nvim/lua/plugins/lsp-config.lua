@@ -204,6 +204,27 @@ return {
 						"typescript.tsx",
 						"vue",
 					},
+					commands = {
+						OrganiseImports = {
+							function()
+								local params = {
+									command = "_typescript.organizeImports",
+									arguments = { vim.api.nvim_buf_get_name(0) },
+									title = "",
+								}
+								vim.lsp.buf.execute_command(params)
+							end,
+							description = "Organise imports",
+						},
+					},
+					on_attach = function(event)
+						vim.keymap.set(
+							"n",
+							"<leader>i",
+							"<cmd>:OrganiseImports<CR>",
+							{ buffer = event.buf, desc = "LSP: Organise [i]mports" }
+						)
+					end,
 				},
 				volar = {},
 

@@ -14,6 +14,10 @@
           - stow
           - ttf-firacode-nerd
           - wl-clipboard
+          - imv
+          - imagemagick
+          - lazygit
+          - yazi
         state: present
         update_cache: yes
 

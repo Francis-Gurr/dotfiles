@@ -24,7 +24,8 @@ set $output-right "Dell Inc. DELL U2722DE 22F0Q83"
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output $output-left bg ~/.config/sway/totoro.jpg fill
+output $output-right bg ~/.config/sway/totoro-dark.jpg fill
 #
 # Example configuration:
 #

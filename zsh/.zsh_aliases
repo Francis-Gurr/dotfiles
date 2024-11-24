@@ -3,6 +3,10 @@ alias nvim-modular='NVIM_APPNAME="nvim-modular" nvim'
 
 alias ls="lsd"
 
+img() {
+    wezterm imgcat "$1"
+}
+
 # ----------------------------------------------------------------------------------------------------
 # Git
 alias gco="git checkout"

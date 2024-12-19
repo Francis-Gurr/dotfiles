@@ -16,10 +16,15 @@
           - git
           - tar # Treesitter requirement
           - curl # Treesitter, mason requirement
-          - fd # Telescope optional requirement
           - python-pylatexenc # Render Markdown requirement
           - python-pynvim # Python 3 provider requirement
           - ttf-firacode-nerd # Nerd font
+          - fzf # fzf-lua requirement
+          - fd # fzf-lua requirement
+          - rg # fzf-lua requirement
+          - bat # fzf-lua requirement
+          - delta # fzf-lua requirement
+          - chafa # fzf-lua requirement
         state: present
         update_cache: yes
 

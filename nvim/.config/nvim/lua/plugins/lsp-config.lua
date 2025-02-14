@@ -191,7 +191,7 @@ return {
 					on_attach = function(event)
 						vim.keymap.set(
 							"n",
-							"<leader>i",
+							"<leader>li",
 							"<cmd>:OrganiseImports<CR>",
 							{ buffer = event.buf, desc = "LSP: Organise [i]mports" }
 						)

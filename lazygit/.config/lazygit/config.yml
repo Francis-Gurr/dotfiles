@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+#
+
+nerdFontsVersion: "3"
+git:
+  autoStageResolvedConflicts: false
+  commitPrefixes:
+    pendo-appengine:
+      pattern: "^(.*)$"
+      replace: '$1 '

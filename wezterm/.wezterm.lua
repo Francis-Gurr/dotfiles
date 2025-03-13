@@ -37,4 +37,8 @@ config.font_size = 12.0
 config.use_fancy_tab_bar = false
 config.tab_max_width = 50
 
+-- Allow pressing option + 3 to get hashtag on macos
+config.send_composed_key_when_left_alt_is_pressed = true
+config.send_composed_key_when_right_alt_is_pressed = true
+
 return config

@@ -13,6 +13,8 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_status\
+$fill\
+${custom.dotfiles}\
 $line_break\
 $character\
 """
@@ -40,3 +42,12 @@ staged = "[+](dimmed white)${count}"
 renamed = "​"
 deleted = "​"
 stashed = "[≡](dimmed white)${count}"
+
+[fill]
+symbol = ' '
+
+[custom.dotfiles]
+command = 'git -C $HOME/.dotfiles branch --show-current 2>/dev/null'
+when = true
+format = '[$output]($style) '
+style = 'dimmed white'

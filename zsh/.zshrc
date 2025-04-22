@@ -53,14 +53,3 @@ compinit
 # Volta
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
-
-# add npm global binaries to path
-
-# pnpm
-export PNPM_HOME="/home/francis/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-

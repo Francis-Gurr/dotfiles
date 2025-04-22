@@ -9,3 +9,8 @@ if [ -f '/Users/francis.gurr/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/fr
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/francis.gurr/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/francis.gurr/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Required for pendo-client
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/zlib/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/expat/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/libffi/lib/pkgconfig

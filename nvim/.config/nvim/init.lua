@@ -4,6 +4,8 @@ vim.g.maplocalleader = " "
 
 vim.g.have_nerd_font = true
 
+vim.g.node_host_prog = "/Users/francis.gurr/.volta/bin/node"
+
 -- Load options (settings)
 require("options")
 

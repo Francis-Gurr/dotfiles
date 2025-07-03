@@ -7,21 +7,24 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		opts = {
 			ensure_installed = {
-				-- ts
+				-- Typescript, Javascript & Vue
 				"vue-language-server",
 				"typescript-language-server",
-				"prettierd",
+				"eslint_d", -- linter
+				"prettierd", -- formatter
 
 				-- python
-				"ruff",
+				"ruff", --lsp, linter & formatter
 
 				-- lua
 				"lua-language-server",
-				-- luacheck,
-				"stylua",
+				"luacheck", -- linter
+				"stylua", -- formatter
 
 				-- some spell checker
-				-- json linter and formatter
+				-- json
+				-- markdown
+				-- beancount
 			},
 		},
 	},

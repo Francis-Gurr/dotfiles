@@ -15,3 +15,6 @@ require("autocmds")
 
 -- Bootstrap and configure lazy.nvim plugin manager
 require("bootstrap-lazy") -- This will handle plugin loading
+
+-- LSP config
+require("lsp")

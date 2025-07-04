@@ -38,6 +38,12 @@ return {
 			},
 			indent = { enable = true, disable = { "ruby" } },
 		},
+		config = function()
+			vim.opt.foldenable = true -- Ensure folding is globally enabled
+			vim.opt.foldmethod = "expr"
+			vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+			vim.opt.foldlevel = 99
+		end,
 		-- There are additional nvim-treesitter modules that you can use to interact
 		-- with nvim-treesitter. You should go explore a few and see what interests you:
 		--

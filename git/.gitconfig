@@ -41,7 +41,7 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 [user]
-	email = francis.gurr@gmail.com
+	email = francis.gurr@agile-robots.com
 	name = Francis-Gurr
 [submodule]
 	recurse = true

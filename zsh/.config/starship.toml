@@ -13,6 +13,8 @@ $git_branch\
 $git_commit\
 $git_state\
 $git_status\
+$fill\
+${custom.dotfiles_version}\
 $line_break\
 $character\
 """
@@ -40,3 +42,17 @@ staged = "[+](dimmed white)${count}"
 renamed = "​"
 deleted = "​"
 stashed = "[≡](dimmed white)${count}"
+
+[fill]
+symbol = ' '
+
+[custom.dotfiles_version]
+command = '''
+  branch=$(git -C $HOME/.dotfiles branch --show-current 2>/dev/null)
+  if [ "$branch" != "main" ]; then
+    echo "$branch"  # This will be the $output for the format string
+  fi
+'''
+when = true
+format = '[$output]($style) '
+style = 'dimmed white'

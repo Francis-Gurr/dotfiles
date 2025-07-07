@@ -1,16 +1,5 @@
 - name: Install and configure zsh
   hosts: localhost
-  vars:
-    zsh_plugins_dir: "{{ ansible_env.HOME }}/.zsh_plugins"
-    zsh_plugins:
-      - name: "zsh-autosuggestions"
-        repo: "git@github.com:zsh-users/zsh-autosuggestions.git"
-      - name: "zsh-completions"
-        repo: "git@github.com:zsh-users/zsh-completions.git"
-      - name: "zsh-history-substring-search"
-        repo: "git@github.com:zsh-users/zsh-history-substring-search.git"
-      - name: "zsh-syntax-highlighting"
-        repo: "git@github.com:zsh-users/zsh-syntax-highlighting.git"
   tasks:
     - name: Install zsh on Debian
       become: true
@@ -26,21 +15,6 @@
         state: present
         update_cache: yes
       when: ansible_facts.os_family == "Archlinux"
-
-    - name: Ensure ~/.zsh_plugins directory exists
-      file:
-        path: "{{ zsh_plugins_dir }}"
-        state: directory
-        mode: '0775'
-        owner: "{{ ansible_user_id }}"
-        group: "{{ ansible_user_gid }}"
-
-    - name: Clone zsh plugins
-      git:
-        repo: "{{ item.repo}}"
-        dest: "{{ zsh_plugins_dir }}/{{item.name}}"
-        force: true
-      with_items: "{{ zsh_plugins }}"
 
     - name: Install Starship prompt
       shell: curl -sS https://starship.rs/install.sh | sh -s -- -y

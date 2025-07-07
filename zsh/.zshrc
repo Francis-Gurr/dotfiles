@@ -52,9 +52,11 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # add npm global binaries to path
 
 # pnpm
-export PNPM_HOME="/home/francis/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+export PATH="$PATH:$HOME/.local/bin"

@@ -21,9 +21,11 @@ return {
 				"luacheck", -- linter
 				"stylua", -- formatter
 
+				-- markdown
+				"marksman",
+				"markdownlint",
 				-- some spell checker
 				-- json
-				-- markdown
 				-- beancount
 			},
 		},

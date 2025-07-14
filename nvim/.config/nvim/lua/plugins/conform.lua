@@ -41,6 +41,8 @@ return {
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
 			vue = { "prettierd" },
+
+			markdown = { "prettierd" },
 		},
 	},
 }

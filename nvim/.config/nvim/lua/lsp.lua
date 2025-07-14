@@ -36,6 +36,7 @@ vim.lsp.config("*", {
 vim.lsp.enable("lua-language-server")
 vim.lsp.enable("ruff")
 vim.lsp.enable({ "vtsls", "vue-language-server" })
+vim.lsp.enable("marksman")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),

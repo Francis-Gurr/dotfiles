@@ -9,7 +9,7 @@ return {
 			ensure_installed = {
 				-- Typescript, Javascript & Vue
 				"vue-language-server",
-				"typescript-language-server",
+				"vtsls",
 				"eslint_d", -- linter
 				"prettierd", -- formatter
 

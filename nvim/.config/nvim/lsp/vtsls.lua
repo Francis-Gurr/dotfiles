@@ -10,6 +10,7 @@ local vue_plugin = {
 }
 
 return {
+	cmd = { "vtsls", "--stdio" },
 	settings = {
 		vtsls = {
 			tsserver = {

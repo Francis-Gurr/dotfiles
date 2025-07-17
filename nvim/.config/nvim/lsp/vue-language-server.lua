@@ -1,6 +1,7 @@
 -- config from: https://github.com/vuejs/language-tools/wiki/Neovim
 
 return {
+	cmd = { "vue-language-server", "--stdio" },
 	on_init = function(client)
 		client.handlers["tsserver/request"] = function(_, result, context)
 			local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })

@@ -14,17 +14,26 @@
 	colorMoved = default
 	colorMovedWS = allow-indentation-change
 	external = difft
+	submodule = log
 [fetch]
 	prune = true
+	recurseSubmodules = on-demand
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	process = git-lfs filter-process
+	required = true
+	smudge = git-lfs smudge -- %f
 [help]
 	autocorrect = prompt
 [init]
 	defaultBranch = main
 [pull]
 	rebase = true
+	recurseSubmodules = on-demand
 [push]
 	autoSetupRemote = true
 	default = simple
+	recurseSubmodules = check
 [rerere]
 	enabled = true
 [transfer]
@@ -34,3 +43,7 @@
 [user]
 	email = francis.gurr@gmail.com
 	name = Francis-Gurr
+[submodule]
+	recurse = true
+[status]
+	submoduleSummary = true

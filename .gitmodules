@@ -10,3 +10,15 @@
 [submodule "zsh/.zsh_plugins/zsh-syntax-highlighting"]
 	path = zsh/.zsh_plugins/zsh-syntax-highlighting
 	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule "tmux/.config/tmux/plugins/tpm"]
+	path = tmux/.config/tmux/plugins/tpm
+	url = git@github.com:tmux-plugins/tpm.git
+[submodule "tmux/.config/tmux/plugins/tmux-resurrect"]
+	path = tmux/.config/tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect.git
+[submodule "tmux/.config/tmux/plugins/tmux-continuum"]
+	path = tmux/.config/tmux/plugins/tmux-continuum
+	url = git@github.com:tmux-plugins/tmux-continuum.git
+[submodule "tmux/.config/tmux/plugins/tmuxp"]
+	path = tmux/.config/tmux/plugins/tmuxp
+	url = git@github.com:tmux-python/tmuxp.git

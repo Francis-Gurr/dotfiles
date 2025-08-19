@@ -98,7 +98,60 @@ return {
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files()
+				local function is_git_repo()
+					local handle = io.popen("git rev-parse --is-inside-work-tree 2>/dev/null")
+					if not handle then
+						return false
+					end
+					local result = handle:read("*l")
+					handle:close()
+					return result == "true"
+				end
+				if not is_git_repo() then
+					vim.notify("Not inside a Git repository", vim.log.levels.WARN)
+					return
+				end
+
+				local root_handle = io.popen("git rev-parse --show-toplevel")
+				if not root_handle then
+					return
+				end
+				local git_root = root_handle:read("*l")
+				root_handle:close()
+
+				local handle = io.popen([[
+                {
+                    git diff --name-only $(git merge-base HEAD main)..HEAD ; # committed changes
+                    git diff --name-only ;                                   # unstaged changes
+                    git diff --name-only --cached ;                          # staged changes
+                    git ls-files --others --exclude-standard                 # untracked files
+                } | sort | uniq
+                ]])
+				if not handle then
+					return
+				end
+				local result = handle:read("*a")
+				handle:close()
+
+				local items = {}
+				for relpath in result:gmatch("[^\r\n]+") do
+					local abspath = git_root .. "/" .. relpath
+					table.insert(items, {
+						text = relpath,
+						file = abspath,
+						preview = {
+							file = abspath,
+						},
+					})
+				end
+
+				Snacks.picker.pick({
+					source = "changed_files",
+					items = items,
+					format = "file",
+					preview = "file",
+					jump = { reuse_win = true },
+				})
 			end,
 			desc = "Find Git Files",
 		},

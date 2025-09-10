@@ -1,0 +1,15 @@
+session_name: agile-core-ide
+start_directory: "${PWD}"
+windows:
+  - window_name: servers
+    layout: tiled
+    panes:
+      - blank
+      - inv ide.frontend
+      - inv ide.backend
+      - start-agilecore -r
+  - window_name: editor
+    panes:
+      - shell_command:
+        - cd frontend
+        - nvim

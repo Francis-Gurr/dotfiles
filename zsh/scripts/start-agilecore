@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+set -e
+
+BASE_URL="https://artifactory.agile-robots.de/artifactory/MU-AR_BIN_STAGING/peac/agile-core"
+RELEASES_DIR="$HOME/dev/agile-core-releases"
+VERSION=""
+OTHER_ARGS=()
+
+# ------------------------
+# Functions
+# ------------------------
+get_versions() {
+    curl -s -L "$BASE_URL" \
+        | grep -oP '(?<=href=")\d+\.\d+\.\d+(-[a-zA-Z0-9]+)?(?=/")' \
+        | sort -Vr
+}
+
+get_latest_version() {
+    get_versions | head -n1
+}
+
+download_version() {
+    local ver="$1"
+    local target="$RELEASES_DIR/$ver"
+
+    echo "Downloading version $ver..."
+    mkdir -p "$target"
+
+    local tarfile
+    tarfile=$(curl -s "$BASE_URL/$ver/" \
+        | grep -oP 'href="agilecore-linux-[^"]+\.tar\.xz"' \
+        | head -n1 \
+        | cut -d'"' -f2)
+
+    if [[ -z "$tarfile" ]]; then
+        echo "No .tar.xz file found for version $ver" >&2
+        exit 1
+    fi
+
+    curl -L "$BASE_URL/$ver/$tarfile" | tar -xJ -C "$target" --strip-components=1
+    echo "Downloaded and extracted $ver to $target"
+}
+
+latest_downloaded_version() {
+    ls -1 "$RELEASES_DIR" 2>/dev/null | sort -Vr | head -n1 || echo ""
+}
+
+# ------------------------
+# Parse arguments
+# ------------------------
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -v=*|--version=*)
+            VERSION="${1#*=}"
+            shift
+            ;;
+        *)
+            OTHER_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+# ------------------------
+# Determine which version to use
+# ------------------------
+REMOTE_LATEST=$(get_latest_version)
+LOCAL_LATEST=$(latest_downloaded_version)
+
+if [[ -n "$VERSION" ]]; then
+    # Version specified
+    if [[ "$VERSION" == "latest" ]]; then
+        VERSION="$REMOTE_LATEST"
+    fi
+
+    RELEASE_FOLDER="$RELEASES_DIR/$VERSION"
+
+    if [[ ! -d "$RELEASE_FOLDER" ]]; then
+        # Not downloaded yet, check if it exists remotely
+        if get_versions | grep -q "^$VERSION\$"; then
+            download_version "$VERSION"
+        else
+            echo "Error: Version $VERSION not found locally or remotely." >&2
+            exit 1
+        fi
+    fi
+else
+    # No version specified
+    VERSION="$LOCAL_LATEST"
+
+    if [[ "$LOCAL_LATEST" != "$REMOTE_LATEST" ]]; then
+        read -p "New version $REMOTE_LATEST available. Download it? [y/N]: " yn
+        if [[ "$yn" =~ ^[Yy]$ ]]; then
+            VERSION="$REMOTE_LATEST"
+            download_version "$VERSION"
+        fi
+    fi
+fi
+
+echo "Using release version: $VERSION"
+
+# ------------------------
+# Run the start script
+# ------------------------
+RELEASE_FOLDER="$RELEASES_DIR/$VERSION"
+
+if [[ ! -d "$RELEASE_FOLDER" ]]; then
+    echo "Error: Release folder '$RELEASE_FOLDER' does not exist." >&2
+    exit 1
+fi
+
+echo "Running ./start-agilecore in $RELEASE_FOLDER with args: ${OTHER_ARGS[*]}"
+(cd "$RELEASE_FOLDER" && ./start-agilecore "${OTHER_ARGS[@]}")

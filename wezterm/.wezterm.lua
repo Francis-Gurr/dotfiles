@@ -37,4 +37,9 @@ config.font_size = 12.0
 config.use_fancy_tab_bar = false
 config.tab_max_width = 50
 
+config.keys = {
+	-- Map bare AltGr (RightAlt) to send Ctrl-b (tmux leader)
+	{ key = "RightAlt", mods = "NONE", action = wezterm.action({ SendString = "\x02" }) },
+}
+
 return config

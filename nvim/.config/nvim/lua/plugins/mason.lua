@@ -11,6 +11,7 @@ return {
 				"vue-language-server",
 				"vtsls",
 				"eslint_d", -- linter
+				"eslint-lsp",
 				"prettierd", -- formatter
 
 				-- python
@@ -24,9 +25,17 @@ return {
 				-- markdown
 				"marksman",
 				"markdownlint",
+
 				-- some spell checker
 				-- json
 				-- beancount
+
+				-- yaml
+				"yaml-language-server",
+
+				-- bash
+				"bash-language-server",
+				"shellcheck",
 			},
 		},
 	},

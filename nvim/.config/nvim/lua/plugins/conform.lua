@@ -38,11 +38,13 @@ return {
 			--
 			-- You can use 'stop_after_first' to run the first available formatter from the list
 			-- javascript = { "prettierd", "prettier", stop_after_first = true },
-			javascript = { "prettierd" },
-			typescript = { "prettierd" },
-			vue = { "prettierd" },
+			javascript = { "eslint_d" },
+			typescript = { "eslint_d" },
+			vue = { "eslint_d" },
+			json = { "eslint_d" },
 
-			markdown = { "prettierd" },
+			markdown = { "markdownlint", "prettierd" },
+			bash = { "shellcheck" },
 		},
 	},
 }

@@ -1,0 +1,11 @@
+session_name: "${SESSION_NAME}"
+start_directory: "${START_DIR}"
+windows:
+  - window_name: terminal
+    layout: tiled
+    panes:
+      - blank
+  - window_name: editor
+    panes:
+      - shell_command:
+          - nvim

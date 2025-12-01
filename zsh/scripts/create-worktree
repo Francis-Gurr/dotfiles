@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Usage: ./create_worktree.sh <worktree_dir> <branch_name>
+set -e  # Exit immediately if a command fails
+
+source .shell_utils.sh
+
+WORKTREE_DIR=$1
+BRANCH_NAME=$2
+START_POINT=${3:-main}
+
+if [[ -z "$WORKTREE_DIR" || -z "$BRANCH_NAME" ]]; then
+    out_red "Usage: $0 <worktree_dir> <branch_name> [<start-point>]"
+    exit 1
+fi
+
+out_yellow "Creating worktree '$WORKTREE_DIR' with branch '$BRANCH_NAME' from '$START_POINT'..."
+git worktree add -b "$BRANCH_NAME" "$WORKTREE_DIR" "$START_POINT"
+
+cd "$WORKTREE_DIR"
+
+out_yellow "Initialising and updating submodules..."
+git submodule update --recursive --init
+
+out_yellow "Installing pre-commit hooks..."
+pre-commit install
+
+out_yellow "Enabling corepack..."
+(cd frontend && corepack enable)
+
+out_yellow "Installing dependencies and building ide..."
+inv ide.start 2>&1 | tee >( 
+    while IFS= read -r line; do
+        echo -e "$line"
+        if [[ "$line" == *"Application startup complete."* ]]; then
+            pkill -P $$
+            break
+        fi
+    done
+) &
+INV_PID=$!
+wait $INV_PID 2>/dev/null || true
+
+out_green "Worktree '$WORKTREE_DIR' with branch '$BRANCH_NAME' is ready!"

@@ -1,0 +1,28 @@
+layout {
+    cwd "/home/francis.gurr/dev/ar-agile-core-ide/"
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+    tab name="FE, BE & Runtime" split_direction="vertical" {
+        pane command="inv" {
+            args "ide.frontend"
+        }
+        pane split_direction="horizontal" {
+            pane command="inv" {
+                args "ide.backend"
+            }
+            pane command="inv" {
+                args "runtime" "--runtime-args" "'--stay_alive 1'"
+            }
+        }
+    }
+    tab name="Neovim: FE" {
+        pane cwd="frontend" command="nvim"
+    }
+}

@@ -46,6 +46,9 @@ setopt INC_APPEND_HISTORY    # Update history file after each command
 # ----------------------------------------------------------------------------------------------------
 # OTHER
 
+# Shell utils
+source $HOME/scripts/.shell_utils.sh
+
 # Enable autocompletion
 autoload -Uz compinit
 compinit

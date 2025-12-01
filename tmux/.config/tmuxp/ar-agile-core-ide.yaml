@@ -1,5 +1,6 @@
-session_name: agile-core-ide
-start_directory: "${PWD}"
+session_name: "${SESSION_NAME}"
+start_directory: "${START_DIR}"
+before_script: "./ar-agile-core-ide-before-script.sh"
 windows:
   - window_name: servers
     layout: tiled
@@ -11,5 +12,4 @@ windows:
   - window_name: editor
     panes:
       - shell_command:
-        - cd frontend
-        - nvim
+          - nvim

@@ -13,7 +13,6 @@
 [diff]
 	colorMoved = default
 	colorMovedWS = allow-indentation-change
-	external = difft
 	submodule = log
 [fetch]
 	prune = true
@@ -47,3 +46,5 @@
 	recurse = true
 [status]
 	submoduleSummary = true
+[url "git@git.ar.int:"]
+	insteadOf = https://git.ar.int/

@@ -1,2 +1,7 @@
 git:
   autoStageResolvedConflicts: false
+
+keybinding:
+  universal:
+    quit: <esc>
+    return: <backspace>

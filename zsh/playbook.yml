@@ -1,31 +1,20 @@
 - name: Install and configure zsh
   hosts: localhost
   tasks:
-    - name: Install zsh on Debian
+    - name: Install zsh
       become: true
-      apt:
+      package:
         name: zsh
         state: present
         update_cache: yes
-      when: ansible_facts.os_family == "Debian"
-    
-    - name: Install zsh on Arch
-      pacman:
-        name: zsh
-        state: present
-        update_cache: yes
-      when: ansible_facts.os_family == "Archlinux"
 
     - name: Install Starship prompt
       shell: curl -sS https://starship.rs/install.sh | sh -s -- -y
       args:
-        warn: false
+        creates: /usr/local/bin/starship
 
     - name: Stow zsh configuration
       command: "stow -d ~/.dotfiles -t ~/ zsh"
-
-    - debug:
-        var: ansible_user_id
 
     - name: Switch default shell to zsh
       become: true

@@ -3,7 +3,7 @@
   tasks:
     - name: Install git
       become: true
-      pacman:
+      package:
         name:
           - git
           - wl-clipboard # To copy public key to clipboard
@@ -16,7 +16,8 @@
     - name: Check if SSH connection to GitHub already exists
       command: ssh -o StrictHostKeyChecking=no -T git@github.com
       register: ssh_check
-      ignore_errors: true
+      failed_when: false
+      changed_when: false
 
     - block:
         - name: Generate SSH key (ed25519)

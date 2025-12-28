@@ -1,0 +1,5 @@
+- name: "Install and configure core tools"
+  hosts: localhost
+
+- import_playbook: git/playbook.yml
+- import_playbook: zsh/playbook.yml

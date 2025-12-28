@@ -22,3 +22,6 @@
 [submodule "tmux/.config/tmux/plugins/tmuxp"]
 	path = tmux/.config/tmux/plugins/tmuxp
 	url = git@github.com:tmux-python/tmuxp.git
+[submodule "tmux/.config/tmux/plugins/tokyo-night-tmux"]
+	path = tmux/.config/tmux/plugins/tokyo-night-tmux
+	url = git@github.com:janoamaral/tokyo-night-tmux.git

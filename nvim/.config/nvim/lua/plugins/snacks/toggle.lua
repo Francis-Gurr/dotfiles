@@ -1,0 +1,37 @@
+local function call(func, args)
+  func(args)
+end
+
+return {
+  "folke/snacks.nvim",
+  opts = {
+    toggle = {},
+  },
+  init = function()
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "VeryLazy",
+      callback = function()
+        Snacks.toggle.diagnostics():map("<leader>td")
+        Snacks.toggle.dim():map("<leader>tD")
+        Snacks.toggle.indent():map("<leader>tg")
+        Snacks.toggle.inlay_hints():map("<leader>th")
+        Snacks.toggle.line_number():map("<leader>tl")
+        Snacks.toggle.profiler():map("<leader>tp")
+        Snacks.toggle.profiler_highlights():map("<leader>tP")
+        Snacks.toggle.scroll():map("<leader>ts")
+        Snacks.toggle.treesitter():map("<leader>tT")
+        Snacks.toggle.zen():map("<leader>tZ")
+        Snacks.toggle.zoom():map("<leader>tz")
+
+        -- Toggle vim options
+        Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>tos")
+        Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tow")
+        Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>toL")
+        Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>tob")
+        Snacks.toggle
+          .option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
+          :map("<leader>toc")
+      end,
+    })
+  end,
+}

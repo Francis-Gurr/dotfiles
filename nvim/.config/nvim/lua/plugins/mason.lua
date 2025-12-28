@@ -36,6 +36,9 @@ return {
 				-- bash
 				"bash-language-server",
 				"shellcheck",
+
+				-- LLM
+				"copilot-language-server",
 			},
 		},
 	},

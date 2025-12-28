@@ -25,3 +25,6 @@
 [submodule "tmux/.config/tmux/plugins/tokyo-night-tmux"]
 	path = tmux/.config/tmux/plugins/tokyo-night-tmux
 	url = git@github.com:janoamaral/tokyo-night-tmux.git
+[submodule "nvim/.config/nvim/pack/nvim/start/nvim-lspconfig"]
+	path = nvim/.config/nvim/pack/nvim/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig

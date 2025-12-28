@@ -8,4 +8,12 @@ return {
 		--   topdelete = { text = '‾' },
 		--   changedelete = { text = '~' },
 	},
+	config = function()
+		vim.keymap.set(
+			"n",
+			"<leader>tb",
+			"<cmd>:Gitsigns toggle_current_line_blame<CR>",
+			{ desc = "Toggle git [b]lame" }
+		)
+	end,
 }

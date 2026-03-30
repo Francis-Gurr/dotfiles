@@ -3,14 +3,14 @@
   tasks:
     - name: Install Node.js, npm, go, gopls, python, python-pip, lua
       become: true
-      pacman:
+      package:
         name:
           - nodejs
           - npm
-          - go
+          - golang
           - gopls
-          - python
-          - python-pip
+          - python3
+          - python3-pip
           - lua
           - luarocks
         state: present

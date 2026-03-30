@@ -3,7 +3,7 @@
   tasks:
     - name: Install bat, btop, firefox, fzf, lsd, stow 
       become: true
-      pacman:
+      package:
         name:
           - bat
           - btop

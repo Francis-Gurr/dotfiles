@@ -1,0 +1,17 @@
+- name: "Install cli tools"
+  hosts: localhost
+  tasks:
+    - name: Install cli tools
+      become: true
+      package:
+        name:
+          - bat
+          - btop
+          - fzf
+          - lsd
+          - stow
+          - imagemagick
+          - lazygit
+          - yazi
+        state: present
+        update_cache: yes

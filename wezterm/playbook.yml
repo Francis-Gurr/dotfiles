@@ -3,11 +3,9 @@
   tasks:
     - name: Install wezterm and dependencies
       become: true
-      pacman:
+      package:
         name:
           - wezterm
-          - ttf-nerd-fonts-symbols-mono
-          - ttf-firacode-nerd
         state: present
         update_cache: yes
 

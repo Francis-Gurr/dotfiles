@@ -1,0 +1,21 @@
+- name: "Install fonts"
+  hosts: localhost
+  tasks:
+    - name: Install FiraCode Nerd Font for the current user
+      block:
+        - name: Create local font directory if it doesn't exist
+          ansible.builtin.file:
+            path: "{{ ansible_env.HOME }}/.local/share/fonts/FiraCode"
+            state: directory
+            mode: '0755'
+
+        - name: Download and extract FiraCode zip from GitHub
+          ansible.builtin.unarchive:
+            src: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip
+            dest: "{{ ansible_env.HOME }}/.local/share/fonts/FiraCode"
+            remote_src: yes
+            exclude: ["*.txt", "*.md"]
+
+        - name: Update font cache
+          ansible.builtin.command: fc-cache -f
+          changed_when: false

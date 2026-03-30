@@ -1,11 +1,9 @@
-- import_playbook: programming-languages-playbook.yml
-
 - name: Install and configure neovim
   hosts: localhost
   tasks:
     - name: Install nvim and dependencies
       become: true
-      pacman:
+      package:
         name:
           - neovim
           - make
@@ -18,7 +16,6 @@
           - curl # Treesitter, mason requirement
           - python-pylatexenc # Render Markdown requirement
           - python-pynvim # Python 3 provider requirement
-          - ttf-firacode-nerd # Nerd font
           - fzf # fzf-lua requirement
           - fd # fzf-lua requirement
           - rg # fzf-lua requirement

@@ -9,6 +9,9 @@ require("mini.surround").setup()
 -- Auto-pair brackets/quotes (replaces nvim-autopairs).
 require("mini.pairs").setup()
 
+-- Comment toggling with `gc` / `gcc` (replaces Comment.nvim).
+require("mini.comment").setup()
+
 require("mini.sessions").setup()
 
 local statusline = require("mini.statusline")

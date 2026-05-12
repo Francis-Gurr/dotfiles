@@ -64,8 +64,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.buf.code_action({ context = { only = { "source" } } })
     end, "[C]ode [S]ource action", { "n", "x" })
 
-    -- Highlight references of the word under the cursor on CursorHold; clear on CursorMoved
     local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+    -- LSP-driven auto-completion
+    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+      vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+    end
+
+    -- Highlight references under cursor on CursorHold
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
       local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {

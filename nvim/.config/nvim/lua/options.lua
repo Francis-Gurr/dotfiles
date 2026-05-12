@@ -47,4 +47,6 @@ vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 
 -- Completion menu: fuzzy matching, popup style
-vim.opt.completeopt = "fuzzy,menu,popup"
+vim.opt.completeopt = "fuzzy"
+-- LSP-only completion (no buffer-word / tag sources)
+vim.opt.complete = ""

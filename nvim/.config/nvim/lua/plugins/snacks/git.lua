@@ -1,3 +1,4 @@
+-- Extends snacks (installed in plugins/snacks.lua) with git-related keymaps.
 local function pick(name, opts)
   return function()
     Snacks.picker[name](opts)
@@ -10,22 +11,15 @@ local function snack(method, opts)
   end
 end
 
-return {
-  "folke/snacks.nvim",
-  keys = {
-    -- Git Pickers
-    { "<leader>gb", pick("git_branches"), desc = "Git Branches" },
-    { "<leader>gl", pick("git_log"), desc = "Git Log" },
-    { "<leader>gs", pick("git_status"), desc = "Git Status" },
-    { "<leader>gd", pick("git_diff"), desc = "Git Diff (Hunks)" },
-    { "<leader>gf", pick("git_log_file"), desc = "Git Log File" },
+local map = vim.keymap.set
 
-    -- LazyGit / GitBrowse (Using the 'run' helper for top-level functions)
-    { "<leader>gg", snack("lazygit"), desc = "Lazygit" },
-    { "<leader>gB", snack("gitbrowse"), desc = "Git Browse", mode = { "n", "v" } },
+-- Git Pickers
+map("n", "<leader>gb", pick("git_branches"), { desc = "Git Branches" })
+map("n", "<leader>gl", pick("git_log"), { desc = "Git Log" })
+map("n", "<leader>gs", pick("git_status"), { desc = "Git Status" })
+map("n", "<leader>gd", pick("git_diff"), { desc = "Git Diff (Hunks)" })
+map("n", "<leader>gf", pick("git_log_file"), { desc = "Git Log File" })
 
-    -- Terminal
-    { "<c-/>", snack("terminal"), desc = "Toggle Terminal" },
-    { "<c-_>", snack("terminal"), desc = "which_key_ignore" },
-  },
-}
+-- LazyGit / GitBrowse
+map("n", "<leader>gg", snack("lazygit"), { desc = "Lazygit" })
+map({ "n", "v" }, "<leader>gB", snack("gitbrowse"), { desc = "Git Browse" })

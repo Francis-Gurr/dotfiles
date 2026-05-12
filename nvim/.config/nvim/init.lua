@@ -10,11 +10,11 @@ require("options")
 -- Load key mappings
 require("keymaps")
 
--- Load autocomands
+-- Load autocommands
 require("autocmds")
 
--- Bootstrap and configure lazy.nvim plugin manager
-require("bootstrap-lazy") -- This will handle plugin loading
+-- Load plugins via vim.pack
+require("pack")
 
 -- LSP config
 require("lsp")

@@ -1,17 +1,21 @@
-return {
-	"iamcco/markdown-preview.nvim",
-	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-	build = "cd app && yarn install",
-	init = function()
-		vim.g.mkdp_filetypes = { "markdown" }
-		-- vim.g.mkdp_markdown_css = vim.fn.expand("~/.config/nvim/lua/plugins/markdown-preview.css")
-		-- vim.g.mkdp_preview_options = {
-		-- 	custom_css = [[
-		--   #page-ctn {
-		--     max-width: none !important;
-		--   }
-		-- ]],
-		-- }
-	end,
-	ft = { "markdown" },
-}
+vim.pack.add({ { src = "https://github.com/iamcco/markdown-preview.nvim" } })
+
+vim.g.mkdp_filetypes = { "markdown" }
+
+-- `cd app && yarn install` build hook — runs once on install and on each
+-- update (PackChanged fires for "install" and "update" kinds).
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(event)
+    local data = event.data
+    if data.spec.name ~= "markdown-preview.nvim" or data.kind == "delete" then
+      return
+    end
+    vim.system({ "yarn", "install" }, { cwd = data.path .. "/app" }, function(out)
+      if out.code ~= 0 then
+        vim.schedule(function()
+          vim.notify("markdown-preview build failed: " .. (out.stderr or ""), vim.log.levels.ERROR)
+        end)
+      end
+    end)
+  end,
+})

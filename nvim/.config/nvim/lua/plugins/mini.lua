@@ -23,6 +23,39 @@ indentscope.setup({
 
 require("mini.sessions").setup()
 
+-- Startup dashboard (replaces snacks.dashboard) with the snacks NEOVIM ASCII
+-- header and a compact action menu.
+local starter = require("mini.starter")
+starter.setup({
+  evaluate_single = true,
+  header = table.concat({
+    "███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗",
+    "████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║",
+    "██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║",
+    "██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║",
+    "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
+    "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
+  }, "\n"),
+  footer = "",
+  items = {
+    { name = " f  Find File", action = "lua Snacks.picker.files()", section = "" },
+    { name = " n  New File", action = "enew | startinsert", section = "" },
+    { name = " g  Find Text", action = "lua Snacks.picker.grep()", section = "" },
+    { name = " r  Recent Files", action = "lua Snacks.picker.recent()", section = "" },
+    {
+      name = " c  Config",
+      action = "lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })",
+      section = "",
+    },
+    { name = "󰦛 s  Restore Session", action = "lua MiniSessions.select()", section = "" },
+    { name = " q  Quit", action = "qa", section = "" },
+  },
+  content_hooks = {
+    starter.gen_hook.adding_bullet(""),
+    starter.gen_hook.aligning("center", "center"),
+  },
+})
+
 local statusline = require("mini.statusline")
 statusline.setup({ use_icons = vim.g.have_nerd_font })
 ---@diagnostic disable-next-line: duplicate-set-field

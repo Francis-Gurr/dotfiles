@@ -3,14 +3,6 @@ vim.pack.add({ { src = "https://github.com/folke/snacks.nvim" } })
 require("snacks").setup({
   bigfile = { enabled = true },
   bufdelete = { enabled = true },
-  dashboard = {
-    enabled = true,
-    -- Default `startup` section requires lazy.nvim's stats module; drop it.
-    sections = {
-      { section = "header" },
-      { section = "keys", gap = 1, padding = 1 },
-    },
-  },
   debug = { enabled = true },
   dim = { enabled = true },
   explorer = { enabled = true },

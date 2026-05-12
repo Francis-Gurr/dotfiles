@@ -12,6 +12,15 @@ require("mini.pairs").setup()
 -- Comment toggling with `gc` / `gcc` (replaces Comment.nvim).
 require("mini.comment").setup()
 
+-- Current-scope indent guide (replaces snacks.indent). Static (no animation),
+-- using a full vertical line glyph to match the snacks default look.
+local indentscope = require("mini.indentscope")
+indentscope.setup({
+  draw = { animation = indentscope.gen_animation.none() },
+  symbol = "│",
+  options = { try_as_border = true },
+})
+
 require("mini.sessions").setup()
 
 local statusline = require("mini.statusline")

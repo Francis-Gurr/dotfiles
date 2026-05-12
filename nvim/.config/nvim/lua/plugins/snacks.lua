@@ -17,7 +17,6 @@ require("snacks").setup({
   git = { enabled = true },
   gitbrowse = { enabled = true },
   image = { enabled = true },
-  indent = { enabled = true },
   input = { enabled = true },
   keymap = { enabled = true },
   lazygit = { enabled = true },

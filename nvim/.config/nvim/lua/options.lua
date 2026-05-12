@@ -45,3 +45,6 @@ vim.opt.expandtab = true
 
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
+
+-- Completion menu: fuzzy matching, popup style
+vim.opt.completeopt = "fuzzy,menu,popup"

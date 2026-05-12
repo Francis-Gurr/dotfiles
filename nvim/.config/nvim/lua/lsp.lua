@@ -40,9 +40,6 @@ require("mason-tool-installer").setup({
   },
 })
 
-vim.o.autocomplete = true
-vim.opt.completeopt = "fuzzy,menu,popup"
-
 vim.lsp.enable({
   "bashls",
   "eslint",

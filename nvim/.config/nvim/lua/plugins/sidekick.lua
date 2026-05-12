@@ -3,19 +3,22 @@ vim.pack.add({ { src = "https://github.com/folke/sidekick.nvim" } })
 require("sidekick").setup({
   cli = {
     mux = {
-      backend = "zellij",
+      backend = "tmux",
       enabled = true,
     },
+    -- Only Claude Code is enabled. Other tools are omitted so they don't show
+    -- up in :checkhealth warnings.
+    tools = {
+      claude = {},
+    },
+  },
+  -- Next Edit Suggestions requires the Copilot LSP, which we don't use.
+  nes = {
+    enabled = false,
   },
 })
 
 local map = vim.keymap.set
-
-map("n", "<tab>", function()
-  if not require("sidekick").nes_jump_or_apply() then
-    return "<Tab>" -- fallback to normal tab
-  end
-end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
 
 map({ "n", "t", "i", "x" }, "<c-.>", function()
   require("sidekick.cli").toggle()

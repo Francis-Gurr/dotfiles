@@ -37,9 +37,6 @@ require("mason-tool-installer").setup({
     -- bash
     "bash-language-server",
     "shellcheck",
-
-    -- LLM
-    "copilot-language-server",
   },
 })
 
@@ -48,7 +45,6 @@ vim.opt.completeopt = "fuzzy,menu,popup"
 
 vim.lsp.enable({
   "bashls",
-  "copilot",
   "eslint",
   "lua_ls",
   "marksman",

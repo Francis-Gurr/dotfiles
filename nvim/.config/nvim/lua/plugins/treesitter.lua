@@ -2,7 +2,6 @@ vim.pack.add({
   -- Pinned to `master` because the `main` branch has an incompatible new API
   -- that requires migrating the configs setup call.
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
-  { src = "https://github.com/davidmh/mdx.nvim" },
 })
 
 -- :TSUpdate equivalent — run parser updates after install/update.
@@ -30,12 +29,13 @@ require("nvim-treesitter.configs").setup({
     "markdown",
     "markdown_inline",
     "python",
+    "query",
+    "regex",
     "scss",
     "typescript",
-    "query",
     "vim",
     "vimdoc",
-    "latex",
+    "yaml",
   },
   auto_install = true,
   highlight = {
@@ -50,5 +50,3 @@ vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldlevel = 99
-
-require("mdx").setup({})

@@ -18,6 +18,11 @@ else
         info "Submodules are up to date."
 fi
 
+if command -v pnpm >/dev/null 2>&1; then
+    info "Installing commitlint and enabling the commit-msg hook"
+    (cd ~/.dotfiles && pnpm install && git config core.hooksPath .githooks)
+fi
+
 info "Running core playbooks"
 ansible-playbook -K ~/.dotfiles/core-playbook.yml
 

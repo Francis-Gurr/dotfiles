@@ -2,7 +2,7 @@
 
 `@commitlint/config-conventional` with two deviations — a leading gitmoji enforced per
 type, and subject-line only (a body/footer warns but doesn't block) — validating the
-[`COMMIT_STYLE.md`](../opencode/.config/opencode/COMMIT_STYLE.md) format:
+format described in the [`commit` skill](../agent/.config/agent/skills/commit/SKILL.md):
 
 ```
 <emoji> <type>(<optional scope>): <subject>

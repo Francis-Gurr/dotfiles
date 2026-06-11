@@ -26,17 +26,37 @@ download_version() {
     echo "Downloading version $ver..."
     mkdir -p "$target"
 
-    local tarfile
-    tarfile=$(curl -s "$BASE_URL/$ver/" \
+    # Pick the build that matches this host's CPU architecture.
+    # Each release publishes: <name>-arm64-slim, <name>-slim, and <name> (x86_64 full).
+    local tarfiles
+    tarfiles=$(curl -s "$BASE_URL/$ver/" \
         | grep -oP 'href="agilecore-linux-[^"]+\.tar\.xz"' \
-        | head -n1 \
         | cut -d'"' -f2)
 
+    local tarfile=""
+    case "$(uname -m)" in
+        aarch64|arm64)
+            # Prefer a full arm64 build, fall back to any arm64 build (e.g. slim)
+            tarfile=$(echo "$tarfiles" | grep 'arm64' | grep -v 'slim' | head -n1)
+            [[ -z "$tarfile" ]] && tarfile=$(echo "$tarfiles" | grep 'arm64' | head -n1)
+            ;;
+        x86_64|amd64)
+            # Exclude arm64 builds; prefer the full build over slim
+            tarfile=$(echo "$tarfiles" | grep -v 'arm64' | grep -v 'slim' | head -n1)
+            [[ -z "$tarfile" ]] && tarfile=$(echo "$tarfiles" | grep -v 'arm64' | head -n1)
+            ;;
+        *)
+            echo "Unsupported architecture: $(uname -m)" >&2
+            exit 1
+            ;;
+    esac
+
     if [[ -z "$tarfile" ]]; then
-        echo "No .tar.xz file found for version $ver" >&2
+        echo "No matching .tar.xz file found for version $ver (arch $(uname -m))" >&2
         exit 1
     fi
 
+    echo "Selected build for $(uname -m): $tarfile"
     curl -L "$BASE_URL/$ver/$tarfile" | tar -xJ -C "$target" --strip-components=1
     echo "Downloaded and extracted $ver to $target"
 }

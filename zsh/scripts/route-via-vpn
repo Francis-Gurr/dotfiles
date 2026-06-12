@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+#
+# Route specific company hosts through the FortiClient VPN.
+#
+# Background: FortiClient on this machine uses IPsec/XFRM with the VPN IP
+# (10.0.192.x) assigned as a secondary address on the wifi NIC rather than a
+# separate tun device. Home LAN is 10.0.0.0/24, which overlaps the corporate
+# /24, so company hosts like gitlab.agile-robots.com (10.0.0.100) get matched
+# by the kernel's on-link LAN route and never enter the tunnel. Adding a /32
+# host route with src = VPN IP wins longest-prefix match and triggers the
+# XFRM outbound policy to encrypt.
+#
+# Run after each VPN connect. Idempotent — safe to re-run.
+
+set -e
+
+source "$(dirname "$(readlink -f "$0")")/.shell_utils.sh"
+
+HOSTS=(
+    10.0.0.100   # gitlab.agile-robots.com / git.ar.int
+    10.0.0.104   # artifactory.agile-robots.de
+    10.0.0.113   # testrail.agile-robots.app
+)
+
+NIC=$(ip -br addr | awk '/10\.0\.192\./ {print $1; exit}')
+VPNIP=$(ip -o addr show "$NIC" 2>/dev/null \
+    | awk '/inet 10\.0\.192\./ {split($4,a,"/"); print a[1]; exit}')
+
+if [[ -z "$NIC" || -z "$VPNIP" ]]; then
+    out_red "VPN not connected — no 10.0.192.x address found on any interface."
+    out_red "Connect FortiClient first, then re-run this script."
+    exit 1
+fi
+
+out_yellow "VPN interface: $NIC (source IP $VPNIP)"
+
+for h in "${HOSTS[@]}"; do
+    sudo ip route replace "$h/32" dev "$NIC" scope link src "$VPNIP"
+    out_green "  routed $h/32 via $NIC"
+done
+
+out_green "Done. Test with: curl -kI https://gitlab.agile-robots.com"

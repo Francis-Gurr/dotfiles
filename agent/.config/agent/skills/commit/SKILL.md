@@ -3,6 +3,9 @@ name: commit
 description: Use when creating a git commit or writing a commit message — the message convention (Conventional Commits + a leading gitmoji, subject line only), how to validate against commitlint, and the commit workflow. Does not push.
 ---
 
+Write commits as Conventional Commits with a leading gitmoji, subject line only, validated
+against commitlint before committing.
+
 ## Convention
 
 [Conventional Commits](https://www.conventionalcommits.org) with a single subject line

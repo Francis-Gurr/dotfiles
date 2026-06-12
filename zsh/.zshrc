@@ -46,6 +46,10 @@ setopt INC_APPEND_HISTORY    # Update history file after each command
 # ----------------------------------------------------------------------------------------------------
 # OTHER
 
+# chsh is blocked on some machines, leaving $SHELL=/bin/bash even though we run
+# zsh — correct it so tools that consult $SHELL (Claude Code, tmux) pick zsh.
+[[ $SHELL == *zsh ]] || export SHELL=$(command -v zsh)
+
 # Shell utils
 source $HOME/scripts/.shell_utils.sh
 

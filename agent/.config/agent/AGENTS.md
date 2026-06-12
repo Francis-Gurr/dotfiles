@@ -8,16 +8,24 @@ Shared instructions for every AI coding session on this machine. They live in
 
 - Commits: use the `commit` skill — it defines the message convention, how to validate
   against commitlint, and the commit workflow.
-- Never `git push` or create commits unless I explicitly ask.
+- PR/MR descriptions: use the `pr-description` skill.
 - Prefer small, focused commits over one large mixed commit.
+- Prefer rebasing and a linear branch history over merge commits.
+- Never create commits unless I explicitly ask; plain `git push` is fine.
+- Never `git push --force`. Only `git push --force-with-lease` if I explicitly ask.
 
 ## Code review
 
 - For a read-only critique of changes, use the `review` skill.
 
+## Code style
+
+When writing or editing code, follow the conventions in `STYLE.md` (naming, comments,
+simplicity, consistency). The `review` skill critiques against the same file.
+
+@~/.config/agent/STYLE.md
+
 ## Working style
 
 - Be concise. Lead with the answer, then the reasoning if needed.
-- When editing code, match the style, naming, and conventions of the surrounding file.
 - Ask before doing anything destructive or hard to reverse.
-- Don't add comments that just restate the code.

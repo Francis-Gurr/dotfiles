@@ -18,6 +18,9 @@ fpath=($HOME/.zsh_plugins/zsh-completions/src $fpath)
 autoload -Uz compinit
 compinit
 
+# fzf key bindings + completion (Ctrl-R history, Ctrl-T files, Alt-C cd)
+command -v fzf >/dev/null && source <(fzf --zsh)
+
 source $HOME/.zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # zsh-syntax-highlighting must be sourced after compinit and all other widgets.
@@ -47,12 +50,6 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 setopt INC_APPEND_HISTORY    # Update history file after each command
 # ----------------------------------------------------------------------------------------------------
 # OTHER
-
-# Volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
-# add npm global binaries to path
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"

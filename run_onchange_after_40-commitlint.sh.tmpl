@@ -8,7 +8,7 @@ if ! command -v pnpm >/dev/null 2>&1; then
 	curl -fsSL https://get.pnpm.io/install.sh | sh -
 fi
 export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+export PATH="$PNPM_HOME/bin:$PATH"
 
 # Ensure a Node runtime (pnpm-managed, no system install / no sudo).
 pnpm env use --global lts || true

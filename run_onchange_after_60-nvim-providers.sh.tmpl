@@ -6,7 +6,7 @@ set -eu
 
 if command -v pnpm >/dev/null 2>&1; then
 	export PNPM_HOME="$HOME/.local/share/pnpm"
-	export PATH="$PNPM_HOME:$PATH"
+	export PATH="$PNPM_HOME/bin:$PATH"
 	pnpm add -g neovim tree-sitter-cli markdownlint || true
 fi
 

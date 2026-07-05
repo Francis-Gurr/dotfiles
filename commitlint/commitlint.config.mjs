@@ -57,9 +57,9 @@ export default {
   rules: {
     // Deviation 1: require the gitmoji that matches the type.
     'type-emoji': [2, 'always'],
-    // Deviation 2: subject line only — warn (not block) so auto-generated bodies
-    // (git revert/merge) still commit.
-    'body-empty': [1, 'always'],
-    'footer-empty': [1, 'always'],
+    // Deviation 2: subject line only. Errors (not warns); commitlint's defaultIgnores
+    // skips merge/revert commits, so their auto-generated bodies still commit.
+    'body-empty': [2, 'always'],
+    'footer-empty': [2, 'always'],
   },
 };

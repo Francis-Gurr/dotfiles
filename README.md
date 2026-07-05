@@ -55,9 +55,11 @@ machines answered as "work" during init). Keep personal projects in `~/dev/*`, w
 
 ## Layout notes
 
-- **Kept but not yet ported**: `nvim/`, `tmux/`, `lazygit/`, `agent/`, `ttyper/` are still in the old
-  stow layout and are listed in `.chezmoiignore`, so chezmoi does not apply them yet. They'll be
-  migrated to chezmoi form incrementally.
+- **Managed**: git, zsh, ghostty, tmux, lazygit, neovim. tmux plugins and nvim-lspconfig are vendored
+  via `.chezmoiexternal.toml.tmpl`; nvim's other plugins are managed by Neovim's native `vim.pack`.
+- **Kept but not yet ported**: `agent/` and `ttyper/` are still in the old stow layout and listed in
+  `.chezmoiignore`, so chezmoi does not apply them yet (agent needs `~/.claude` symlinks; ttyper is
+  cargo-only). They'll be migrated incrementally.
 - **Parked**: the Wayland desktop stack (sway/waybar/greetd/fuzzel), wezterm, and Arch (`pacman`)
   support live on the [`arch`](https://github.com/Francis-Gurr/dotfiles/tree/arch) branch, to be
   ported back into `main` if a Linux desktop is adopted.

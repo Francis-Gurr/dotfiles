@@ -11,11 +11,14 @@
 	verbose = true
 [core]
 	editor = vim
+	pager = delta
+[delta]
+	navigate = true
+	line-numbers = true
 [diff]
 	algorithm = histogram
 	colorMoved = default
 	colorMovedWS = allow-indentation-change
-	external = difft
 	submodule = log
 [fetch]
 	prune = true
@@ -29,6 +32,8 @@
 	autocorrect = prompt
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	conflictStyle = zdiff3
 [pull]

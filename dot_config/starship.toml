@@ -7,7 +7,7 @@ format = """
 $username\
 $hostname\
 $localip\
-$sh1v1\
+$shlvl\
 $directory\
 $git_branch\
 $git_commit\
@@ -48,7 +48,7 @@ symbol = ' '
 
 [custom.dotfiles_version]
 command = '''
-  branch=$(git -C $HOME/.dotfiles branch --show-current 2>/dev/null)
+  branch=$(git -C $HOME/.local/share/chezmoi branch --show-current 2>/dev/null)
   if [ "$branch" != "main" ]; then
     echo "$branch"  # This will be the $output for the format string
   fi

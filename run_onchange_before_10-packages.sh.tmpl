@@ -9,11 +9,12 @@ brew install {{ concat .packages.common .packages.darwin | join " " }}
 brew install --cask ghostty
 {{ else if eq .chezmoi.osRelease.id "fedora" -}}
 sudo dnf copr enable -y scottames/ghostty
+sudo dnf copr enable -y dejan/lazygit
 sudo dnf install -y ghostty {{ concat .packages.common .packages.fedora | join " " }}
 {{ else -}}
 sudo apt-get update
 sudo apt-get install -y {{ concat .packages.common .packages.debian | join " " }}
-# ghostty has no official Debian/Ubuntu package yet — install separately (see README).
+# ghostty and lazygit have no official Debian/Ubuntu packages yet — install separately (see README).
 {{ end -}}
 
 # starship prompt (single binary, no package manager needed)

@@ -3,6 +3,6 @@
 # run_onchange_before_10-packages.sh.tmpl (repo/cask/curl), fonts via .chezmoiexternal.
 packages:
   common: [git, zsh, gh, git-lfs, tmux]
-  fedora: [vim-enhanced, difftastic]
-  debian: [vim, difftastic]
-  darwin: [difftastic] # vim ships with macOS; git-lfs via common (brew)
+  fedora: [vim-enhanced, difftastic, lazygit] # lazygit via dejan/lazygit COPR (enabled in installer)
+  debian: [vim, difftastic] # lazygit not in apt — install manually (see installer note)
+  darwin: [difftastic, lazygit] # vim ships with macOS; git-lfs/lazygit via common (brew)

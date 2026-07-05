@@ -2,7 +2,7 @@
 # distro-specific extras/name-overrides. ghostty + starship are handled specially in
 # run_onchange_before_10-packages.sh.tmpl (repo/cask/curl), fonts via .chezmoiexternal.
 packages:
-  common: [git, zsh, gh, git-lfs, tmux]
-  fedora: [vim-enhanced, difftastic, lazygit] # lazygit via dejan/lazygit COPR (enabled in installer)
-  debian: [vim, difftastic] # lazygit not in apt — install manually (see installer note)
-  darwin: [difftastic, lazygit] # vim ships with macOS; git-lfs/lazygit via common (brew)
+  common: [git, zsh, gh, git-lfs, tmux, neovim, ripgrep, fzf, bat, chafa, git-delta]
+  fedora: [vim-enhanced, difftastic, lazygit, fd-find, make, gcc, unzip, gettext] # lazygit via dejan/lazygit COPR (enabled in installer)
+  debian: [vim, difftastic, fd-find, make, gcc, unzip, gettext] # lazygit not in apt — install manually (see installer note); fd binary is 'fdfind' on Debian
+  darwin: [difftastic, lazygit, fd] # vim/make/clang/unzip ship with macOS; git-lfs/lazygit/fd via brew

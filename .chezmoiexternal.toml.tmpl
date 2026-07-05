@@ -42,6 +42,12 @@
     url = "https://github.com/janoamaral/tokyo-night-tmux.git"
     refreshPeriod = "168h"
 
+# --- neovim: nvim-lspconfig lives in the native pack/ path so it loads at startup ---
+[".config/nvim/pack/nvim/start/nvim-lspconfig"]
+    type = "git-repo"
+    url = "https://github.com/neovim/nvim-lspconfig.git"
+    refreshPeriod = "168h"
+
 # --- FiraCode Nerd Font (patched; distro fira-code packages lack the Nerd Font glyphs) ---
 {{- $fontdir := ".local/share/fonts/FiraCode" }}
 {{- if eq .chezmoi.os "darwin" }}{{ $fontdir = "Library/Fonts/FiraCode" }}{{ end }}

@@ -6,20 +6,27 @@ source $HOME/.zsh_aliases
 # ----------------------------------------------------------------------------------------------------
 # SECRETS
 
-source $HOME/.zsh_secrets
+# Optional, machine-local (gitignored) — guard so a missing file doesn't error on startup.
+[ -f "$HOME/.zsh_secrets" ] && source "$HOME/.zsh_secrets"
 
 # ----------------------------------------------------------------------------------------------------
-# PLUGINS
+# PLUGINS & COMPLETION
 
-source $HOME/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zsh-completions must be on fpath before compinit runs.
+fpath=($HOME/.zsh_plugins/zsh-completions/src $fpath)
 
-source $HOME/.zsh_plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+autoload -Uz compinit
+compinit
 
 source $HOME/.zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-fpath=($HOME/.zsh_plugins/zsh-completions/zsh-completions.git/src $fpath)
+# zsh-syntax-highlighting must be sourced after compinit and all other widgets.
+source $HOME/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-history-substring-search must be sourced after zsh-syntax-highlighting.
+source $HOME/.zsh_plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 eval "$(starship init zsh)"
 
@@ -40,10 +47,6 @@ setopt SHARE_HISTORY             # Share history between all sessions.
 setopt INC_APPEND_HISTORY    # Update history file after each command
 # ----------------------------------------------------------------------------------------------------
 # OTHER
-
-# Enable autocompletion
-autoload -Uz compinit
-compinit
 
 # Volta
 export VOLTA_HOME="$HOME/.volta"

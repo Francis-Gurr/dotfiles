@@ -47,3 +47,5 @@
 	recurse = true
 [status]
 	submoduleSummary = true
+[includeIf "gitdir:~/dev/work/"]
+	path = ~/.config/git/work.inc

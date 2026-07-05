@@ -7,9 +7,12 @@
 	undo = reset --soft HEAD^
 [branch]
 	sort = -committerdate
+[commit]
+	verbose = true
 [core]
 	editor = vim
 [diff]
+	algorithm = histogram
 	colorMoved = default
 	colorMovedWS = allow-indentation-change
 	external = difft
@@ -26,6 +29,8 @@
 	autocorrect = prompt
 [init]
 	defaultBranch = main
+[merge]
+	conflictStyle = zdiff3
 [pull]
 	rebase = true
 	recurseSubmodules = on-demand
@@ -33,6 +38,8 @@
 	autoSetupRemote = true
 	default = simple
 	recurseSubmodules = check
+[rebase]
+	autostash = true
 [rerere]
 	enabled = true
 [transfer]

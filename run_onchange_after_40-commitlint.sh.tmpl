@@ -6,7 +6,7 @@ set -eu
 command -v pnpm >/dev/null 2>&1 || curl -fsSL https://get.pnpm.io/install.sh | sh -
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME/bin:$PATH"
-pnpm env use --global lts || true
+pnpm runtime set node lts -g || true
 
 cd "{{ .chezmoi.sourceDir }}"
 pnpm install --frozen-lockfile

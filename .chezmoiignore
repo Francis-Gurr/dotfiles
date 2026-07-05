@@ -9,7 +9,6 @@ commitlint
 # Kept-but-dormant tool dirs (still in old stow layout, not yet ported to chezmoi form).
 # Preserved in the repo for a later port; chezmoi must not try to apply them.
 nvim
-tmux
 lazygit
 agent
 ttyper

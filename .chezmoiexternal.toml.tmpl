@@ -21,6 +21,27 @@
     url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     refreshPeriod = "168h"
 
+# --- tmux plugins (vendored so they're present at first launch; TPM sources them) ---
+[".config/tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm.git"
+    refreshPeriod = "168h"
+
+[".config/tmux/plugins/tmux-resurrect"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-resurrect.git"
+    refreshPeriod = "168h"
+
+[".config/tmux/plugins/tmux-continuum"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-continuum.git"
+    refreshPeriod = "168h"
+
+[".config/tmux/plugins/tokyo-night-tmux"]
+    type = "git-repo"
+    url = "https://github.com/janoamaral/tokyo-night-tmux.git"
+    refreshPeriod = "168h"
+
 # --- FiraCode Nerd Font (patched; distro fira-code packages lack the Nerd Font glyphs) ---
 {{- $fontdir := ".local/share/fonts/FiraCode" }}
 {{- if eq .chezmoi.os "darwin" }}{{ $fontdir = "Library/Fonts/FiraCode" }}{{ end }}

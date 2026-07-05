@@ -1,9 +1,5 @@
 alias ls="lsd"
 
-img() {
-    wezterm imgcat "$1"
-}
-
 # ----------------------------------------------------------------------------------------------------
 # Git
 alias gco="git checkout"
@@ -11,7 +7,7 @@ alias gco="git checkout"
 alias g="git status"
 
 alias gd="git diff"
-alias gd="git diff --staged"
+alias gds="git diff --staged"
 
 alias ga="git add"
 alias gaa="git add --all"

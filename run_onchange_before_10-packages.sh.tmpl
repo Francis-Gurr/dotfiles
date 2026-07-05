@@ -1,5 +1,5 @@
 #!/bin/sh
-# Install base packages + ghostty + starship. Re-runs only when the package list changes.
+# Install base packages, ghostty, and starship.
 # packages: {{ .packages | toJson | sha256sum }}
 set -eu
 
@@ -14,8 +14,6 @@ sudo dnf install -y ghostty {{ concat .packages.common .packages.fedora | join "
 {{ else -}}
 sudo apt-get update
 sudo apt-get install -y {{ concat .packages.common .packages.debian | join " " }}
-# ghostty and lazygit have no official Debian/Ubuntu packages yet — install separately (see README).
 {{ end -}}
 
-# starship prompt (single binary, no package manager needed)
 command -v starship >/dev/null 2>&1 || curl -sS https://starship.rs/install.sh | sh -s -- -y -b "$HOME/.local/bin"

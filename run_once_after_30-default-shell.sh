@@ -1,17 +1,11 @@
 #!/bin/sh
-# Make zsh the default login shell (idempotent). Runs once.
+# Make zsh the default login shell.
 set -eu
 
 zsh_path="$(command -v zsh || true)"
-if [ -z "$zsh_path" ]; then
-	echo "zsh not found; skipping default-shell change"
-	exit 0
-fi
+[ -n "$zsh_path" ] || { echo "zsh not found; skipping default-shell change"; exit 0; }
 
-# Register zsh in /etc/shells if missing (required for chsh to accept it).
-if ! grep -qx "$zsh_path" /etc/shells 2>/dev/null; then
-	echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
-fi
+grep -qx "$zsh_path" /etc/shells 2>/dev/null || echo "$zsh_path" | sudo tee -a /etc/shells >/dev/null
 
 case "${SHELL:-}" in
 	*/zsh) ;;

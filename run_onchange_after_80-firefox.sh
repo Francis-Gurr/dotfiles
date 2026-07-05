@@ -1,15 +1,8 @@
 #!/bin/sh
-# Firefox UI prefs that Sync doesn't cover (toolbar layout, pinned add-ons, sidebar side).
-# Deployed as user.js in the default profile and re-applied at every Firefox start, so THIS
-# file is the source of truth (rearrange in Firefox and it reverts on restart unless updated here).
-#
-# To update after rearranging in Firefox, grab the new values and paste them below, then
-# `chezmoi apply`:
-#   grep -E 'browser\.uiCustomization\.state|^user_pref\("sidebar\.' \
-#     ~/.config/mozilla/firefox/*.default*/prefs.js
+# Deploy Firefox UI prefs (Sync-excluded) as user.js. To update: rearrange in Firefox, then replace
+# the block below with: grep -E 'uiCustomization.state|"sidebar\.' ~/.config/mozilla/firefox/*.default*/prefs.js
 set -eu
 
-# Find the default profile (Fedora XDG / Debian / macOS).
 for base in "${XDG_CONFIG_HOME:-$HOME/.config}/mozilla/firefox" \
             "$HOME/.mozilla/firefox" \
             "$HOME/Library/Application Support/Firefox"; do

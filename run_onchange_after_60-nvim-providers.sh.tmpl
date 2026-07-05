@@ -1,7 +1,5 @@
 #!/bin/sh
-# Best-effort neovim providers/tools (matches the old playbook). All non-fatal — nvim works
-# without them; they just enable extra features (remote plugins, treesitter CLI, md lint, latex).
-# tools: neovim tree-sitter-cli markdownlint (npm) ; pynvim pylatexenc (python)
+# Best-effort nvim providers (npm + python); non-fatal.
 set -eu
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -9,7 +7,6 @@ export PATH="$PNPM_HOME/bin:$PATH"
 if command -v pnpm >/dev/null 2>&1; then
 	pnpm add -g neovim tree-sitter-cli markdownlint || true
 fi
-
 if command -v python3 >/dev/null 2>&1; then
 	python3 -m pip install --user --break-system-packages --upgrade pynvim pylatexenc >/dev/null 2>&1 || true
 fi

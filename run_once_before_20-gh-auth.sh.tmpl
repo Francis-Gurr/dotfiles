@@ -1,25 +1,16 @@
 #!/bin/sh
-# GitHub access via gh CLI: authenticate (SSH), ensure a key is registered, and point the
-# source repo at SSH so future push/pull is passwordless. Runs once. Interactive (browser login).
+# GitHub auth via gh (SSH), then point the source repo at SSH.
 set -eu
 
 if ! command -v gh >/dev/null 2>&1; then
-	echo "gh not installed; skipping GitHub auth. Install gh and re-run: chezmoi apply"
+	echo "gh not installed; skipping GitHub auth (install gh, then: chezmoi apply)"
 	exit 0
 fi
 
-if ! gh auth status >/dev/null 2>&1; then
-	echo "==> Logging in to GitHub (choose SSH — gh can generate & upload a key for you)"
-	gh auth login --git-protocol ssh --hostname github.com
-fi
-
+gh auth status >/dev/null 2>&1 || gh auth login --git-protocol ssh --hostname github.com
 gh config set -h github.com git_protocol ssh || true
 
-# Make sure a key exists locally and is registered on the account.
-if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
-	ssh-keygen -t ed25519 -C "francis.gurr@gmail.com" -f "$HOME/.ssh/id_ed25519" -N ""
-fi
+[ -f "$HOME/.ssh/id_ed25519" ] || ssh-keygen -t ed25519 -C "francis.gurr@gmail.com" -f "$HOME/.ssh/id_ed25519" -N ""
 gh ssh-key add "$HOME/.ssh/id_ed25519.pub" --title "$(uname -n)" 2>/dev/null || true
 
-# Use SSH for the dotfiles source repo from here on.
 git -C "{{ .chezmoi.sourceDir }}" remote set-url origin git@github.com:Francis-Gurr/dotfiles.git 2>/dev/null || true

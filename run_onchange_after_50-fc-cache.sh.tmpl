@@ -1,7 +1,6 @@
 {{ if ne .chezmoi.os "darwin" -}}
 #!/bin/sh
-# Refresh the font cache after the FiraCode Nerd Font external is applied (Linux only;
-# macOS auto-detects fonts in ~/Library/Fonts). os: {{ .chezmoi.os }}
+# Refresh the font cache (Linux).
 set -eu
 fc-cache -f "$HOME/.local/share/fonts"
 {{ end -}}

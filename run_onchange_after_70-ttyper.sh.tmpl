@@ -1,0 +1,13 @@
+#!/bin/sh
+# ttyper is not packaged for Fedora/Debian (installed via brew on macOS). Install it with cargo
+# if a Rust toolchain is present; otherwise leave a hint. Best-effort, non-fatal.
+set -eu
+{{ if ne .chezmoi.os "darwin" -}}
+if ! command -v ttyper >/dev/null 2>&1; then
+	if command -v cargo >/dev/null 2>&1; then
+		cargo install ttyper || true
+	else
+		echo "ttyper not installed: install Rust, then run 'cargo install ttyper'"
+	fi
+fi
+{{ end -}}

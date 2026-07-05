@@ -6,10 +6,6 @@ pnpm-lock.yaml
 commitlint.config.mjs
 commitlint
 
-# Kept-but-dormant tool dirs (still in old stow layout, not yet ported to chezmoi form).
-# Preserved in the repo for a later port; chezmoi must not try to apply them.
-ttyper
-
 # Work git identity — only materialize on work machines.
 {{ if not .is_work }}
 .config/git/work.inc

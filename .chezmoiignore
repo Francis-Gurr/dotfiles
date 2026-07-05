@@ -1,0 +1,20 @@
+# Repo tooling / meta — lives in the repo, never applied to $HOME.
+# (Dotfiles at the source root, e.g. .githooks/.gitmodules/.gitignore, are auto-ignored by chezmoi.)
+README.md
+package.json
+pnpm-lock.yaml
+commitlint.config.mjs
+commitlint
+
+# Kept-but-dormant tool dirs (still in old stow layout, not yet ported to chezmoi form).
+# Preserved in the repo for a later port; chezmoi must not try to apply them.
+nvim
+tmux
+lazygit
+agent
+ttyper
+
+# Work git identity — only materialize on work machines.
+{{ if not .is_work }}
+.config/git/work.inc
+{{ end }}

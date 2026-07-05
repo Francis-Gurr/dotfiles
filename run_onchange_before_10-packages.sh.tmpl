@@ -1,0 +1,20 @@
+#!/bin/sh
+# Install base packages + ghostty + starship. Re-runs only when the package list changes.
+# packages: {{ .packages | toJson | sha256sum }}
+set -eu
+
+{{ if eq .chezmoi.os "darwin" -}}
+command -v brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install {{ concat .packages.common .packages.darwin | join " " }}
+brew install --cask ghostty
+{{ else if eq .chezmoi.osRelease.id "fedora" -}}
+sudo dnf copr enable -y scottames/ghostty
+sudo dnf install -y ghostty {{ concat .packages.common .packages.fedora | join " " }}
+{{ else -}}
+sudo apt-get update
+sudo apt-get install -y {{ concat .packages.common .packages.debian | join " " }}
+# ghostty has no official Debian/Ubuntu package yet — install separately (see README).
+{{ end -}}
+
+# starship prompt (single binary, no package manager needed)
+command -v starship >/dev/null 2>&1 || curl -sS https://starship.rs/install.sh | sh -s -- -y -b "$HOME/.local/bin"

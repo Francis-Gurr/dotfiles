@@ -1,0 +1,18 @@
+#!/bin/sh
+# Set up commitlint for the dotfiles source repo: pnpm (standalone) + a Node runtime,
+# install dev deps, and enable the commit-msg hook. Re-runs when deps change.
+# deps: {{ include "package.json" | sha256sum }} {{ include "pnpm-lock.yaml" | sha256sum }}
+set -eu
+
+if ! command -v pnpm >/dev/null 2>&1; then
+	curl -fsSL https://get.pnpm.io/install.sh | sh -
+fi
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# Ensure a Node runtime (pnpm-managed, no system install / no sudo).
+pnpm env use --global lts || true
+
+cd "{{ .chezmoi.sourceDir }}"
+pnpm install --frozen-lockfile
+git config core.hooksPath .githooks

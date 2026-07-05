@@ -1,0 +1,32 @@
+# Replaces the old git submodules. zsh plugins are fetched over HTTPS (public → no auth).
+# See dot_zshrc for where these are sourced. `refreshPeriod` throttles re-fetching.
+
+[".zsh_plugins/zsh-autosuggestions"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+    refreshPeriod = "168h"
+
+[".zsh_plugins/zsh-completions"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-completions.git"
+    refreshPeriod = "168h"
+
+[".zsh_plugins/zsh-history-substring-search"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-history-substring-search.git"
+    refreshPeriod = "168h"
+
+[".zsh_plugins/zsh-syntax-highlighting"]
+    type = "git-repo"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    refreshPeriod = "168h"
+
+# --- FiraCode Nerd Font (patched; distro fira-code packages lack the Nerd Font glyphs) ---
+{{- $fontdir := ".local/share/fonts/FiraCode" }}
+{{- if eq .chezmoi.os "darwin" }}{{ $fontdir = "Library/Fonts/FiraCode" }}{{ end }}
+["{{ $fontdir }}"]
+    type = "archive"
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip"
+    include = ["*.ttf", "**/*.ttf"]
+    stripComponents = 0
+    refreshPeriod = "8760h"

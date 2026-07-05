@@ -1,0 +1,8 @@
+# Package names per platform. `common` installs everywhere; the per-OS lists add
+# distro-specific extras/name-overrides. ghostty + starship are handled specially in
+# run_onchange_before_10-packages.sh.tmpl (repo/cask/curl), fonts via .chezmoiexternal.
+packages:
+  common: [git, zsh, gh]
+  fedora: []
+  debian: []
+  darwin: []

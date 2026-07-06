@@ -1,6 +1,6 @@
 #!/bin/sh
-# Deploy Firefox UI prefs (Sync-excluded) as user.js. To update: rearrange in Firefox, then replace
-# the block below with: grep -E 'uiCustomization.state|"sidebar\.' ~/.config/mozilla/firefox/*.default*/prefs.js
+# Deploy Firefox prefs (UI layout, spellcheck, no saved logins/cards) as user.js. To update the UI block:
+# rearrange in Firefox, then re-grep: grep -E 'uiCustomization.state|"sidebar\.' ~/.config/mozilla/firefox/*.default*/prefs.js
 set -eu
 
 for base in "${XDG_CONFIG_HOME:-$HOME/.config}/mozilla/firefox" \
@@ -24,5 +24,9 @@ user_pref("sidebar.revamp", true);
 user_pref("sidebar.revamp.defaultLauncherVisible", false);
 user_pref("sidebar.visibility", "hide-sidebar");
 user_pref("sidebar.main.tools", "aichat,syncedtabs,history,bookmarks,{446900e4-71c2-419f-a6a7-df9c091e268b}");
+user_pref("spellchecker.dictionary", "en-GB,de-DE");
+user_pref("signon.rememberSignons", false);
+user_pref("extensions.formautofill.creditCards.enabled", false);
+user_pref("extensions.formautofill.addresses.enabled", false);
 PREFS
 echo "firefox: applied UI prefs -> $profile/user.js"

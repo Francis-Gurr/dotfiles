@@ -1,0 +1,8 @@
+Host homeserver
+    User user
+    StrictHostKeyChecking accept-new
+
+Host homeserver-git
+    HostName homeserver
+    User git
+    StrictHostKeyChecking accept-new

@@ -6,3 +6,9 @@ Host homeserver-git
     HostName homeserver
     User git
     StrictHostKeyChecking accept-new
+
+Host backuppi
+    User user
+    IdentityFile ~/.ssh/backuppi
+    IdentitiesOnly yes
+    StrictHostKeyChecking accept-new

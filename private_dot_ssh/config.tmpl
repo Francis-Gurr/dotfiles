@@ -1,3 +1,4 @@
+{{ if not .is_work }}
 Host homeserver
     User user
     StrictHostKeyChecking accept-new
@@ -12,3 +13,4 @@ Host backuppi
     IdentityFile ~/.ssh/backuppi
     IdentitiesOnly yes
     StrictHostKeyChecking accept-new
+{{ end -}}

@@ -7,3 +7,8 @@ commitlint
 {{ if not .is_work }}
 .config/git/work.inc
 {{ end }}
+
+{{ if .is_work }}
+06-tailscale.sh
+15-homeserver-enroll.sh
+{{ end }}

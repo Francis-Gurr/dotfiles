@@ -17,7 +17,9 @@ applied to disk, and `10`–`15` after, so the gap marks the phase boundary:
 
 **Before** (env + credentials, so GitHub auth has a ready browser and vault to work with):
 
-1. **Prompt** — `is_work?` (and, if yes, your work git email).
+1. **Prompt** — `is_work?` (and, if yes, your work git email). Work machines skip Tailscale
+   entirely and never get `homeserver`/`homeserver-git`/`backuppi` in `~/.ssh/config` — they
+   shouldn't be able to reach or even know about the home network.
 2. `00` **Install packages** — per OS: `dnf` + the `scottames/ghostty` COPR on Fedora, `apt` on
    Debian/Ubuntu, Homebrew (incl. the ghostty cask) on macOS. Also installs starship.
 3. `01` **System settings** — GNOME dark mode + US keyboard layout (Linux only, skipped if

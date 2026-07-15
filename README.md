@@ -12,27 +12,40 @@ everything:
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply Francis-Gurr
 ```
 
-What it does, in order:
+What it does, in order. Run scripts are numbered `00`–`05` before dotfiles/externals are
+applied to disk, and `10`–`15` after, so the gap marks the phase boundary:
+
+**Before** (env + credentials, so GitHub auth has a ready browser and vault to work with):
 
 1. **Prompt** — `is_work?` (and, if yes, your work git email).
-2. **Install packages** — per OS: `dnf` + the `scottames/ghostty` COPR on Fedora, `apt` on
+2. `00` **Install packages** — per OS: `dnf` + the `scottames/ghostty` COPR on Fedora, `apt` on
    Debian/Ubuntu, Homebrew (incl. the ghostty cask) on macOS. Also installs starship.
-3. **System settings** — GNOME dark mode + US keyboard layout (Linux only, skipped if
+3. `01` **System settings** — GNOME dark mode + US keyboard layout (Linux only, skipped if
    `gsettings` isn't present).
-4. **Bitwarden** — installs the Bitwarden desktop app (Flatpak on Linux, Homebrew cask on
+4. `02` **Bitwarden** — installs the Bitwarden desktop app (Flatpak on Linux, Homebrew cask on
    macOS) so vault-stored credentials are available before GitHub auth.
-5. **Firefox Sync sign-in** — opens `about:preferences#sync` and waits for you to sign in,
-   so bookmarks/history/tabs/extensions are in place before GitHub auth opens a browser.
-6. **GitHub auth** — `gh auth login` over SSH (generates/uploads a key), sets `git_protocol ssh`,
-   and repoints this repo's remote to SSH.
-7. **Externals** — fetches the zsh plugins and the FiraCode Nerd Font (over HTTPS).
-8. **Default shell** — switches your login shell to zsh.
-9. **commitlint** — installs pnpm + a Node runtime and enables the commit-msg hook in this repo.
-10. **Font cache** — `fc-cache` on Linux.
-11. **Firefox UI prefs** — applies saved toolbar/sidebar layout and spellcheck dictionaries
-    to your (now Sync-populated) profile.
+5. `03` **Firefox Sync sign-in** — opens `about:preferences#sync` and waits for you to sign in
+   (skipped if already signed in), so bookmarks/history/tabs/extensions are in place before
+   GitHub auth opens a browser.
+6. `04` **Firefox UI prefs** — applies saved toolbar/sidebar layout and spellcheck dictionaries
+   to the profile from the previous step.
+7. `05` **GitHub auth** — `gh auth login` over SSH (generates/uploads a key), sets
+   `git_protocol ssh`, and repoints this repo's remote to SSH.
 
-Steps 2, 4, 5 and 6 are interactive (sudo password / Bitwarden unlock / Firefox sign-in /
+**Apply** — dotfiles and externals (zsh plugins, FiraCode Nerd Font) are deployed to disk.
+
+**After** (now that dotfiles/externals exist on disk):
+
+8. `10` **Default shell** — switches your login shell to zsh.
+9. `11` **Font cache** — `fc-cache` on Linux, so the just-deployed Nerd Font renders.
+10. `12` **commitlint** — installs pnpm + a Node runtime and enables the commit-msg hook in
+    this repo.
+11. `13` **nvim providers** — installs the Python/Node providers Neovim needs.
+12. `14` **ttyper** — typing-practice tool setup.
+13. `15` **Homeserver enroll** — best-effort SSH key enrollment when on the home network;
+    never fails the apply.
+
+Steps 2, 4, 5 and 7 are interactive (sudo password / Bitwarden unlock / Firefox sign-in /
 browser login).
 
 ## Day-to-day

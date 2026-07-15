@@ -31,22 +31,25 @@ applied to disk, and `10`–`15` after, so the gap marks the phase boundary:
    to the profile from the previous step.
 7. `05` **GitHub auth** — `gh auth login` over SSH (generates/uploads a key), sets
    `git_protocol ssh`, and repoints this repo's remote to SSH.
+8. `06` **Tailscale** — installs and logs in (opens a URL to approve the device) if not
+   already connected. `homeserver` and `backuppi` in `~/.ssh/config` resolve via Tailscale
+   MagicDNS, not LAN/mDNS, so this has to be working before you can reach either.
 
 **Apply** — dotfiles and externals (zsh plugins, FiraCode Nerd Font) are deployed to disk.
 
 **After** (now that dotfiles/externals exist on disk):
 
-8. `10` **Default shell** — switches your login shell to zsh.
-9. `11` **Font cache** — `fc-cache` on Linux, so the just-deployed Nerd Font renders.
-10. `12` **commitlint** — installs pnpm + a Node runtime and enables the commit-msg hook in
+9. `10` **Default shell** — switches your login shell to zsh.
+10. `11` **Font cache** — `fc-cache` on Linux, so the just-deployed Nerd Font renders.
+11. `12` **commitlint** — installs pnpm + a Node runtime and enables the commit-msg hook in
     this repo.
-11. `13` **nvim providers** — installs the Python/Node providers Neovim needs.
-12. `14` **ttyper** — typing-practice tool setup.
-13. `15` **Homeserver enroll** — best-effort SSH key enrollment when on the home network;
+12. `13` **nvim providers** — installs the Python/Node providers Neovim needs.
+13. `14` **ttyper** — typing-practice tool setup.
+14. `15` **Homeserver enroll** — best-effort SSH key enrollment when on the home network;
     never fails the apply.
 
-Steps 2, 4, 5 and 7 are interactive (sudo password / Bitwarden unlock / Firefox sign-in /
-browser login).
+Steps 2, 4, 5, 7 and 8 are interactive (sudo password / Bitwarden unlock / Firefox sign-in /
+browser login / Tailscale device approval).
 
 ## Day-to-day
 

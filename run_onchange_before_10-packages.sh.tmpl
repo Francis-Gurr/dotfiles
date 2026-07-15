@@ -16,4 +16,4 @@ sudo apt-get update
 sudo apt-get install -y {{ concat .packages.common .packages.debian | join " " }}
 {{ end -}}
 
-command -v starship >/dev/null 2>&1 || curl -sS https://starship.rs/install.sh | sh -s -- -y -b "$HOME/.local/bin"
+command -v starship >/dev/null 2>&1 || { mkdir -p "$HOME/.local/bin" && curl -sS https://starship.rs/install.sh | sh -s -- -y -b "$HOME/.local/bin"; }

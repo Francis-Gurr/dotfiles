@@ -1,13 +1,35 @@
 #!/bin/sh
 # Bitwarden desktop: installed and launched before Firefox Sync sign-in and gh-auth,
-# so vault-stored credentials are unlocked and ready when those steps need them.
+# so vault-stored credentials are unlocked and ready when those steps need them. Skips
+# the launch if Firefox Sync is already signed in — nothing left to unlock it for.
 set -eu
 
 {{ if eq .chezmoi.os "darwin" -}}
 [ -d "/Applications/Bitwarden.app" ] || brew install --cask bitwarden
-open -a Bitwarden
 {{ else -}}
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak info com.bitwarden.desktop >/dev/null 2>&1 || flatpak install -y --noninteractive flathub com.bitwarden.desktop
+{{ end -}}
+
+for base in "${XDG_CONFIG_HOME:-$HOME/.config}/mozilla/firefox" \
+            "$HOME/.mozilla/firefox" \
+            "$HOME/Library/Application Support/Firefox"; do
+	[ -f "$base/profiles.ini" ] || continue
+	rel=$(awk -F= '/^\[Install/{i=1;next} /^\[/{i=0} i&&$1=="Default"{print $2;exit}' "$base/profiles.ini")
+	if [ -z "$rel" ]; then
+		d=$(ls -d "$base"/*.default-release 2>/dev/null | head -n1)
+		[ -n "$d" ] && rel=$(basename "$d")
+	fi
+	[ -n "$rel" ] && { profile="$base/$rel"; break; }
+done
+
+if [ -n "${profile:-}" ] && [ -f "$profile/signedInUser.json" ]; then
+	echo "bitwarden: firefox sync already signed in, skipping launch"
+	exit 0
+fi
+
+{{ if eq .chezmoi.os "darwin" -}}
+open -a Bitwarden
+{{ else -}}
 flatpak run com.bitwarden.desktop >/dev/null 2>&1 &
 {{ end -}}

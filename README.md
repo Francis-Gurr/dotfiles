@@ -17,14 +17,23 @@ What it does, in order:
 1. **Prompt** — `is_work?` (and, if yes, your work git email).
 2. **Install packages** — per OS: `dnf` + the `scottames/ghostty` COPR on Fedora, `apt` on
    Debian/Ubuntu, Homebrew (incl. the ghostty cask) on macOS. Also installs starship.
-3. **GitHub auth** — `gh auth login` over SSH (generates/uploads a key), sets `git_protocol ssh`,
+3. **System settings** — GNOME dark mode + US keyboard layout (Linux only, skipped if
+   `gsettings` isn't present).
+4. **Bitwarden** — installs the Bitwarden desktop app (Flatpak on Linux, Homebrew cask on
+   macOS) so vault-stored credentials are available before GitHub auth.
+5. **Firefox Sync sign-in** — opens `about:preferences#sync` and waits for you to sign in,
+   so bookmarks/history/tabs/extensions are in place before GitHub auth opens a browser.
+6. **GitHub auth** — `gh auth login` over SSH (generates/uploads a key), sets `git_protocol ssh`,
    and repoints this repo's remote to SSH.
-4. **Externals** — fetches the zsh plugins and the FiraCode Nerd Font (over HTTPS).
-5. **Default shell** — switches your login shell to zsh.
-6. **commitlint** — installs pnpm + a Node runtime and enables the commit-msg hook in this repo.
-7. **Font cache** — `fc-cache` on Linux.
+7. **Externals** — fetches the zsh plugins and the FiraCode Nerd Font (over HTTPS).
+8. **Default shell** — switches your login shell to zsh.
+9. **commitlint** — installs pnpm + a Node runtime and enables the commit-msg hook in this repo.
+10. **Font cache** — `fc-cache` on Linux.
+11. **Firefox UI prefs** — applies saved toolbar/sidebar layout and spellcheck dictionaries
+    to your (now Sync-populated) profile.
 
-Steps 2, 3 and 5 are interactive (sudo password / browser login).
+Steps 2, 4, 5 and 6 are interactive (sudo password / Bitwarden unlock / Firefox sign-in /
+browser login).
 
 ## Day-to-day
 

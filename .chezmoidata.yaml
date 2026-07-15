@@ -1,5 +1,5 @@
 packages:
   common: [git, zsh, gh, git-lfs, tmux, neovim, ripgrep, fzf, bat, chafa, git-delta, lsd, btop]
-  fedora: [vim-enhanced, lazygit, fd-find, make, gcc, unzip, gettext, imv, hunspell-de]
+  fedora: [vim-enhanced, lazygit, fd-find, make, gcc, unzip, gettext, imv, hunspell-de, wl-clipboard]
   debian: [vim, fd-find, make, gcc, unzip, gettext, imv, hunspell-de-de]
   darwin: [lazygit, fd, ttyper]

@@ -23,4 +23,33 @@ sudo systemctl enable --now tailscaled
 {{ end -}}
 
 state=$(tailscale status --json 2>/dev/null | grep -oE '"BackendState": *"[A-Za-z]*"' | cut -d'"' -f4)
-[ "$state" = "Running" ] || sudo tailscale up
+if [ "$state" != "Running" ]; then
+	# tailscale up needs sudo, but sudo drops the graphical session env (DISPLAY/
+	# WAYLAND_DISPLAY/XDG_RUNTIME_DIR), so its own browser-open silently fails. Run it
+	# in the background and open the auth URL ourselves, as the normal user.
+	sudo tailscale up &
+	tsup_pid=$!
+
+	url=""
+	i=0
+	while [ "$i" -lt 30 ]; do
+		json=$(tailscale status --json 2>/dev/null)
+		state=$(printf '%s' "$json" | grep -oE '"BackendState": *"[A-Za-z]*"' | cut -d'"' -f4)
+		[ "$state" = "Running" ] && break
+		url=$(printf '%s' "$json" | grep -oE '"AuthURL": *"[^"]*"' | cut -d'"' -f4)
+		[ -n "$url" ] && break
+		i=$((i + 1))
+		sleep 1
+	done
+
+	if [ -n "$url" ]; then
+		echo "tailscale: opening $url to approve this device"
+{{ if eq .chezmoi.os "darwin" -}}
+open "$url"
+{{ else -}}
+command -v xdg-open >/dev/null 2>&1 && xdg-open "$url" >/dev/null 2>&1 &
+{{ end -}}
+	fi
+
+	wait "$tsup_pid"
+fi

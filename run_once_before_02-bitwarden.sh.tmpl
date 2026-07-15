@@ -1,10 +1,13 @@
 #!/bin/sh
-# Bitwarden desktop, installed before gh-auth so vault-stored GitHub creds are available for login.
+# Bitwarden desktop: installed and launched before Firefox Sync sign-in and gh-auth,
+# so vault-stored credentials are unlocked and ready when those steps need them.
 set -eu
 
 {{ if eq .chezmoi.os "darwin" -}}
 [ -d "/Applications/Bitwarden.app" ] || brew install --cask bitwarden
+open -a Bitwarden
 {{ else -}}
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak info com.bitwarden.desktop >/dev/null 2>&1 || flatpak install -y --noninteractive flathub com.bitwarden.desktop
+flatpak run com.bitwarden.desktop >/dev/null 2>&1 &
 {{ end -}}

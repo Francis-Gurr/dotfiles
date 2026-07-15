@@ -26,5 +26,5 @@ if [ -n "${profile:-}" ] && [ -f "$profile/signedInUser.json" ]; then
 fi
 
 firefox about:preferences#sync >/dev/null 2>&1 &
-printf 'firefox: sign in to Firefox Sync, then press Enter here to continue... '
+printf 'firefox: click "Sign In" (it opens accounts.firefox.com) and finish signing in, then press Enter here to continue... '
 read -r _ < /dev/tty || true

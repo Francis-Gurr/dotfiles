@@ -27,7 +27,7 @@ if [ "$state" != "Running" ]; then
 	# tailscale up needs sudo, but sudo drops the graphical session env (DISPLAY/
 	# WAYLAND_DISPLAY/XDG_RUNTIME_DIR), so its own browser-open silently fails. Run it
 	# in the background and open the auth URL ourselves, as the normal user.
-	sudo tailscale up &
+	sudo tailscale up --accept-routes &
 	tsup_pid=$!
 
 	url=""

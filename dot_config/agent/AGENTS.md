@@ -23,6 +23,11 @@ deployed paths, so this is an easy mistake to make.
 
 - For a read-only critique of changes, use the `review` skill.
 
+## Writing
+
+- Any prose I will read later — notes, skills, docs, READMEs, commit bodies, PR descriptions: use
+  the `caveman` skill. Tight prose, no filler, full sentences.
+
 ## Notes & plans
 
 My personal Obsidian vault is `~/Documents/francis-notes/francis`.

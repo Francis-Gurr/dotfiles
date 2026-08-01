@@ -1,100 +1,83 @@
 ---
 name: obsidian-plan
-description: Use when planning a piece of work into my Obsidian vault, updating a plan's progress, or resuming from one. Plans belong in the vault, not in the repo or ~/.claude/plans. Includes a mandatory review gate before any plan is approved.
+description: Use when planning work into my Obsidian vault, updating progress, or resuming from a plan. Plans belong in the vault, not in the repo or ~/.claude/plans. Includes a mandatory review gate before any plan is approved.
 ---
 
 Read `~/.config/agent/skills/obsidian-notes/SKILL.md` for vault conventions and
-`~/.config/agent/skills/obsidian-project/SKILL.md` for resolving which project and task you are in.
-Do not duplicate that logic here.
+`~/.config/agent/skills/obsidian-project/SKILL.md` for resolving project and task. Do not duplicate
+that logic here. Write with the `caveman` skill.
 
 ## A plan is a status, not a shape
 
-**A plan is not a kind of note.** There are only areas, projects, workstreams and tasks, and they all
-have the same three sections. Approving a plan means writing its content into that structure — never
-adding `Approach`, `Decisions`, `Review` or `Progress` headings, and never creating a standalone plan
-note.
-
-Where each part of a plan goes:
+There are only areas, projects, workstreams and tasks, all with the same three sections. Approving a
+plan means writing its content into that structure — never adding `Approach`, `Decisions`, `Review`
+or `Progress` headings, never creating a standalone plan note.
 
 | Plan content | Lands in |
 |---|---|
 | Goal, and how the work is shaped | `## Summary` of the workstream or task |
 | The actual work | `## Steps` on each task |
-| Decisions, and the ones rejected | `## Notes`, at the level the decision applies to |
+| Decisions, including rejected ones | `## Notes`, at the level it applies to |
 | Review findings | `## Notes` of whatever was reviewed |
-| Progress narrative | `## Notes`, dated |
+| Progress | `## Notes`, dated |
 
-Plan a **task** when the work is one piece; a **workstream** when it spans several. If no suitable
-note exists yet, create it via `obsidian-project` first, then plan into it.
+Plan a **task** when the work is one piece; a **workstream** when it spans several. Create the note
+via `obsidian-project` first if none exists.
 
-**A workstream-sized plan creates its tasks at the same time.** The workstream carries the shared
-summary; every unit of work becomes a task note from `Templates/Task.md` with `project`, `workstream`
-and `order`. Create them all while saving the plan — deferring them leaves the workstream as one
-opaque note, and a `type: note` standing in for the implementation detail is the standalone plan note
-this rules out.
+**A workstream-sized plan creates its tasks at the same time**, each from `Templates/Task.md` with
+`project`, `workstream` and `order`. Deferring them leaves the workstream as one opaque note.
 
-Do not restate the task list in the workstream's `## Summary`. The `## Tasks` block derives it, and a
-hand-written copy drifts. Per-task detail like "done when the VM boots" belongs on that task.
+**Name tasks for what they do** — `Bootstrap`, `Home Manager` — never `Phase 1 - …`. Prefixes collide
+across workstreams and repeat the `type`. Sequence goes in `order`, which renumbers without the CLI
+rename a rename would need.
 
-**Name tasks for what they do** — `Bootstrap`, `Home Manager` — never `Phase 1 - …` or any other
-ordering prefix. The type is already in frontmatter, and prefixes collide across workstreams. When
-tasks are genuinely sequential, set `order: 0`, `order: 1` … and let the workstream's `## Tasks`
-block sort on it. Ordering is data, not a filename: renumbering beats renaming, which would need the
-CLI to keep links intact.
+Do not restate the task list in the workstream's `## Summary`; the `## Tasks` block derives it.
+Per-task detail like "done when the VM boots" belongs on that task.
 
-Status flow: `draft` while planning and under review → `todo` once the gate passes → `in-progress`
-once work starts. Tasks start at `todo` alongside their workstream. **Revising a plan edits the same
-notes.** Never create a second one.
+Status: `draft` while planning and under review → `todo` once the gate passes → `in-progress` once
+work starts. Tasks start at `todo` alongside their workstream. **Revising a plan edits the same
+notes** — never create a second one.
 
-Record real decisions in `## Notes`, including the ones *not* taken and why — that is the part worth
-having in six months, since the steps will be obvious from the diff. Put each decision at the lowest
-level it applies to, and surface it upward only if it affects siblings.
-
-Keep it concise, and never split it into a sibling `type: note` — a project folder holds only
-projects, workstreams and tasks. If a rationale is too long for the note it belongs to, cut it down
-rather than moving it somewhere it belongs even less.
+Record decisions in `## Notes`, including the ones *not* taken and why. That is the part worth having
+in six months; the steps will be obvious from the diff.
 
 ## The review gate
 
-**No plan is approved without a subagent review pass.** The sequence is strict:
+**No plan is approved without a subagent review pass**, in this order:
 
 1. Draft the plan.
 2. Francis reviews and comments. Iterate.
 3. **Only once he says he is happy**, spawn the review subagent.
 
-Never run it earlier. Reviewing a plan that is still churning wastes the pass, and its findings go
-stale before he has finished commenting.
+Never run it earlier — findings on a churning plan go stale before he has finished commenting.
 
-Use a read-only subagent (the `Plan` type), giving it every note being planned — the workstream and
-all its tasks — and the repo it targets. It checks the plan **against reality**, not for style:
+Use a read-only subagent (`Plan` type), giving it every note being planned and the repo it targets.
+It checks the plan **against reality**, not for style:
 
-- Do the named files, functions and paths actually exist?
+- Do the named files, functions and paths exist?
 - Are the steps executable in the order given?
 - Do any steps contradict each other?
 - What does it assume without saying?
-- Would the verification section actually catch a failure, or is it "look and see if it seems fine"?
+- Would the verification actually catch a failure, or is it "look and see"?
 
-Record the findings in `## Notes` on whatever was reviewed, along with what was done about each —
-**including findings deliberately not acted on, and why**. Keep it to the findings that changed
-something or that someone would otherwise hit again; a full transcript of the review helps nobody.
+Record findings in `## Notes` on whatever was reviewed, with what was done about each — **including
+those deliberately not acted on, and why**. Keep to findings that changed something or that someone
+would hit again; a full transcript helps nobody.
 
-Report the findings to Francis. If any are material, the plan goes back to `draft` and the loop
-repeats rather than being waved through. Only once the findings are resolved does `status` become
-`todo`.
+Report to Francis. Material findings send the plan back to `draft` rather than through. Only once
+they are resolved does `status` become `todo`.
 
-This is not ceremony. On the plan that built this vault the gate caught a note type that matched no
-view, an embed that would have rendered one view instead of six, and CLI commands missing `vault=`
-that could have written to the wrong vault.
+Not ceremony: on the plan that built this vault, the gate caught a note type that matched no view, an
+embed that would have rendered one view instead of six, and CLI commands missing `vault=` that could
+have written to the wrong vault.
 
-Its blind spot is worth knowing: it checks whether a plan is *true*, not whether it fits these
-conventions. It passed a plan whose tasks were all named `Phase N - …`, because nothing about naming
-was wrong with respect to reality.
+Know its blind spot — it checks whether a plan is *true*, not whether it fits these conventions. It
+passed a plan whose tasks were all named `Phase N - …`, because nothing about naming was false.
 
 ## Progress and resuming
 
-Tick `## Steps` checkboxes as work proceeds, and add dated entries to `## Notes` saying what changed
-and what is left. Statuses say what is active; the note says why and where you stopped. That is what
-lets work be picked up mid-way on another machine, which is the entire reason plans live here.
+Tick `## Steps` as work proceeds and add dated entries to `## Notes` saying what changed and what is
+left. Statuses say what is active; the note says why and where you stopped.
 
 When resuming, read the `## Notes` of the task and its workstream **before doing anything**, and
 report where things stand. Do not restart from step one.

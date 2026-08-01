@@ -42,8 +42,8 @@ One `status` vocabulary for every type: `draft` → `todo` → `in-progress` →
 |---|---|
 | `area` | `status` |
 | `project` | `status`, `area` (link), `remote` |
-| `workstream` | `status`, `project` (link), `url` |
-| `task` | `status`, `project` (link), `workstream` (link), `url`, `order` |
+| `workstream` | `status`, `project` (link) |
+| `task` | `status`, `project` (link), `workstream` (link), `order` |
 | `note` | `project` (link), `source` |
 
 `remote` is the normalised git origin — `github.com/Francis-Gurr/dotfiles`, scheme and `.git`
@@ -52,7 +52,12 @@ portability matters. Omit it for non-code projects.
 
 `area`, `project`, `workstream` are links and need quoting: `area: "[[Personal dev]]"`. `type` and
 `status` stay plain strings — they are schema enums, not concepts, and linking them would create
-empty stub notes. `url` is work-only, pointing at Jira.
+empty stub notes.
+
+**There is no work-specific property yet.** A Jira ticket key already leads the note title, so a
+`ticket` property would duplicate it. Whether work notes also need a clickable `url` is deliberately
+undecided until there are real tickets to look at — adding a property later is a one-line template
+edit, while unpicking a wrong guess means touching every note.
 
 `project` is set on a task even when `workstream` is too. Mild duplication, but it lets Bases group
 by project without following a link it cannot traverse.
@@ -61,10 +66,13 @@ by project without following a link it cannot traverse.
 never ends up in a filename: `Phase 1 - Bootstrap` collides across workstreams, repeats the `type`
 already in frontmatter, and needs a CLI rename to reorder.
 
-**Leave optional properties present but blank rather than deleting them** — `order`, `url`,
-`workstream` on an unattached task. A note should carry the same keys its template does, so the
-properties panel prompts you with the field instead of relying on you remembering it exists. Bases
-treats blank and absent identically, so this is for your benefit, not the queries'.
+**Leave optional properties present but blank rather than deleting them** — `order`, or `workstream`
+on a task attached straight to its project. A note should carry the same keys its template does, so
+the properties panel prompts you with the field instead of relying on you remembering it exists.
+Bases treats blank and absent identically, so this is for your benefit, not the queries'.
+
+This applies to properties that are *sometimes* unset, not ones that only apply in a context the
+note isn't in. A property no personal note could ever use does not belong on the shared template.
 
 ## Writing notes
 

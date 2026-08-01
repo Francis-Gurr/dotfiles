@@ -61,12 +61,13 @@ Promote between tiers when asked, or when the work turns out bigger than it look
 
 ## Updating status
 
-Keep `status` current on the task and its project as work proceeds, and keep the project hub's
-`**Next:**` line accurate — that line is what makes an interrupted project resumable from another
-machine, and it is the first thing to go stale.
+Keep `status` current on the task and its workstream as work proceeds — the derived tables and the
+Board read from it, so a stale status is the one thing that makes every view lie. There is no
+hand-written "next" line anywhere; what to pick up is whatever is `in-progress`, and why you stopped
+belongs in that note's `## Notes`.
 
 Set `blocked` as soon as work stalls on someone else. Unlike a "paused" state, you know the moment
 it happens, which is why it is worth recording.
 
-When resuming: read the hub note first, then the in-progress task, and **report where things stand
-before doing any work**. Do not restart from the beginning of something already half done.
+When resuming: read the in-progress task and its workstream `## Notes`, and **report where things
+stand before doing any work**. Do not restart from the beginning of something already half done.

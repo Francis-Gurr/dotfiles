@@ -78,6 +78,38 @@ treats blank and absent identically, so this is for your benefit, not the querie
 This applies to properties that are *sometimes* unset, not ones that only apply in a context the
 note isn't in. A property no personal note could ever use does not belong on the shared template.
 
+## Note structure
+
+**Every note has exactly three sections**, the same shape at every level — what it is, what is under
+it, everything else:
+
+| Type | Sections |
+|---|---|
+| `area` | `## Summary` · `## Projects` (derived) · `## Notes` |
+| `project` | `## Summary` · `## Work` (derived) · `## Notes` |
+| `workstream` | `## Summary` · `## Tasks` (derived) · `## Notes` |
+| `task` | `## Summary` · `## Steps` (checkboxes) · `## Notes` |
+| `note` | `## Summary` · `## Details` |
+
+**There is no separate shape for planned work.** A plan does not add `Approach`, `Decisions`,
+`Review` or `Progress` sections — its content is distributed into this structure: how the work is
+shaped goes in `## Summary`, the actual work becomes tasks with `## Steps`, and decisions, review
+findings and progress narrative go in `## Notes` at the level they apply to.
+
+**Put information at the lowest level it belongs**, and surface it upward only if it genuinely
+applies there. A gotcha found doing one task belongs in that task's `## Notes` — not the
+workstream's. Move it up only when it affects sibling tasks, and up again only when it affects
+other workstreams. Most things never move.
+
+**Keep notes concise.** A note is a working document, not a report: say the thing and stop. If a
+rationale runs long enough to bury what it explains, split it into a `type: note` in the same folder
+and link out.
+
+**Never restate what the structure already says.** No "full spec in [[the workstream]]", no "this is
+a task under X", no repeating the goal of the parent — the `project` and `workstream` properties
+already link upward, the derived tables already link downward, and the type is in frontmatter. Write
+only what is true of *this* note and nowhere else.
+
 ## Writing notes
 
 - **No `# H1`.** Obsidian renders the filename as an inline title, so a matching H1 shows twice.
@@ -90,9 +122,10 @@ note isn't in. A property no personal note could ever use does not belong on the
   projects and workstreams have no checkbox section at all.
 - Lists of tasks are **derived, never written by hand** — an embedded ` ```base ` block filtered on
   `workstream == this` cannot drift, because the table is the frontmatter.
-- Each level lists only what it owns. A **workstream** lists its tasks, sorted by `order`. A
-  **project** lists its workstreams plus any task with no workstream (`workstream.isEmpty()`) — never
-  tasks that belong to a workstream, since those are the workstream's to show.
+- Each level lists only what it owns. An **area** lists its projects; a **workstream** lists its
+  tasks, sorted by `order`; a **project** lists its workstreams plus any task with no workstream
+  (`workstream.isEmpty()`) — never tasks that belong to a workstream, since those are the
+  workstream's to show.
 
 In a base view, `order:` is the **columns to display**, not the row sort. Sorting needs a separate
 `sort:` key, which the published syntax docs omit but the app supports:

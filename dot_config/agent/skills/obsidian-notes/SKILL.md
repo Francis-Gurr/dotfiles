@@ -62,14 +62,18 @@ edit, while unpicking a wrong guess means touching every note.
 `project` is set on a task even when `workstream` is too. Mild duplication, but it lets Bases group
 by project without following a link it cannot traverse.
 
-`order` is an integer, set only when a workstream's tasks run in sequence. It exists so ordering
-never ends up in a filename: `Phase 1 - Bootstrap` collides across workstreams, repeats the `type`
-already in frontmatter, and needs a CLI rename to reorder.
+`order` is a **required** integer on every task, defaulting to `0`. Where a workstream's tasks run in
+sequence, number them `0, 1, 2 …`; where they don't, leave them all at `0` — equal values say "these
+are equivalent" explicitly, and the view falls back to sorting by name. Always present means always
+sortable, with no blank-versus-absent ambiguity.
 
-**Leave optional properties present but blank rather than deleting them** — `order`, or `workstream`
-on a task attached straight to its project. A note should carry the same keys its template does, so
-the properties panel prompts you with the field instead of relying on you remembering it exists.
-Bases treats blank and absent identically, so this is for your benefit, not the queries'.
+It exists so ordering never ends up in a filename: `Phase 1 - Bootstrap` collides across
+workstreams, repeats the `type` already in frontmatter, and needs a CLI rename to reorder.
+
+**Leave optional properties present but blank rather than deleting them** — `workstream` on a task
+attached straight to its project, say. A note should carry the same keys its template does, so the
+properties panel prompts you with the field instead of relying on you remembering it exists. Bases
+treats blank and absent identically, so this is for your benefit, not the queries'.
 
 This applies to properties that are *sometimes* unset, not ones that only apply in a context the
 note isn't in. A property no personal note could ever use does not belong on the shared template.

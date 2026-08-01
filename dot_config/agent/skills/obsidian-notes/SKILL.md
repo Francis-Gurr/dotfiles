@@ -42,7 +42,7 @@ One `status` vocabulary for every type: `draft` → `todo` → `in-progress` →
 |---|---|
 | `area` | `status` |
 | `project` | `status`, `area` (link), `remote` |
-| `workstream` | `status`, `project` (link) |
+| `workstream` | `status`, `project` (link), `order` |
 | `task` | `status`, `project` (link), `workstream` (link), `order` |
 | `note` | `project` (link), `source` |
 
@@ -62,10 +62,10 @@ edit, while unpicking a wrong guess means touching every note.
 `project` is set on a task even when `workstream` is too. Mild duplication, but it lets Bases group
 by project without following a link it cannot traverse.
 
-`order` is a **required** integer on every task, defaulting to `0`. Where a workstream's tasks run in
-sequence, number them `0, 1, 2 …`; where they don't, leave them all at `0` — equal values say "these
-are equivalent" explicitly, and the view falls back to sorting by name. Always present means always
-sortable, with no blank-versus-absent ambiguity.
+`order` is a **required** integer on every task and workstream, defaulting to `0`. Where siblings run
+in sequence, number them `0, 1, 2 …`; where they don't, leave them all at `0` — equal values say
+"these are equivalent" explicitly, and the view falls back to sorting by name. Always present means
+always sortable, with no blank-versus-absent ambiguity.
 
 It exists so ordering never ends up in a filename: `Phase 1 - Bootstrap` collides across
 workstreams, repeats the `type` already in frontmatter, and needs a CLI rename to reorder.
@@ -102,8 +102,12 @@ workstream's. Move it up only when it affects sibling tasks, and up again only w
 other workstreams. Most things never move.
 
 **Keep notes concise.** A note is a working document, not a report: say the thing and stop. If a
-rationale runs long enough to bury what it explains, split it into a `type: note` in the same folder
-and link out.
+rationale is too long, the answer is usually to cut it, not to move it.
+
+**A project folder holds only projects, workstreams and tasks.** Do not create a `type: note`
+alongside them — it shows up between the real work and belongs to none of it. Knowledge about the
+work goes in the `## Notes` of whichever task, workstream, project or area it applies to.
+`type: note` is for `Resources/`: external material, tied to no project.
 
 **Never restate what the structure already says.** No "full spec in [[the workstream]]", no "this is
 a task under X", no repeating the goal of the parent — the `project` and `workstream` properties

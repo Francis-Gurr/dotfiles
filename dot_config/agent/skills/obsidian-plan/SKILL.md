@@ -50,9 +50,9 @@ Record real decisions in `## Notes`, including the ones *not* taken and why — 
 having in six months, since the steps will be obvious from the diff. Put each decision at the lowest
 level it applies to, and surface it upward only if it affects siblings.
 
-Keep it concise. When a decision's rationale runs long enough to bury what it explains, move it to a
-sibling `type: note` and link out, leaving the headline inline. That is for rationale only — the
-steps of a piece of work always live on its task, never on a note.
+Keep it concise, and never split it into a sibling `type: note` — a project folder holds only
+projects, workstreams and tasks. If a rationale is too long for the note it belongs to, cut it down
+rather than moving it somewhere it belongs even less.
 
 ## The review gate
 

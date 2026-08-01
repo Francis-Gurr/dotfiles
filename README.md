@@ -86,6 +86,10 @@ machines answered as "work" during init). Keep personal projects in `~/dev/*`, w
   plugins and nvim-lspconfig are vendored via `.chezmoiexternal.toml.tmpl`; nvim's other plugins are
   managed by Neovim's native `vim.pack`. The agent config links into `~/.claude` via chezmoi
   `symlink_` entries (`CLAUDE.md`, `skills`). ttyper installs via brew on macOS / `cargo` on Linux.
+- **Obsidian**: the `obsidian-notes`, `obsidian-project` and `obsidian-plan` skills teach agents to
+  write into the personal vault at `~/Documents/francis-notes/francis` — its structure, frontmatter
+  schema, and the rule that renames go through the Obsidian CLI so wikilinks survive. The vault
+  itself is not managed here; it syncs via the Self-hosted LiveSync plugin.
 - **Parked**: the Wayland desktop stack (sway/waybar/greetd/fuzzel), wezterm, and Arch (`pacman`)
   support live on the [`arch`](https://github.com/Francis-Gurr/dotfiles/tree/arch) branch, to be
   ported back into `main` if a Linux desktop is adopted.

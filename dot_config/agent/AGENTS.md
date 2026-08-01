@@ -18,6 +18,16 @@ Shared instructions for every AI coding session on this machine. They live in
 
 - For a read-only critique of changes, use the `review` skill.
 
+## Notes & plans
+
+My personal Obsidian vault is `~/Documents/francis-notes/francis`.
+
+- Reading or writing any note: use the `obsidian-notes` skill.
+- Finding or creating a project, workstream or task, or updating status: use the `obsidian-project`
+  skill.
+- Planning work: use the `obsidian-plan` skill. Plans live in the vault, not in the repo or
+  `~/.claude/plans` — offer to save one whenever a plan is drafted or approved.
+
 ## Code style
 
 When writing or editing code, follow the conventions in `STYLE.md` (naming, comments,

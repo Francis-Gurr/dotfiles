@@ -19,16 +19,31 @@ Do not duplicate that logic here.
 ## Progress
 ```
 
-Plan a **task** when the work is one piece; a **workstream** when it spans several tasks. If no
-suitable note exists yet, create it via `obsidian-project` first, then plan into it. Templates stay
-lean deliberately — these sections appear only when work is genuinely planned, so a one-line fix
-never opens with four empty headings.
+Plan a **task** when the work is one piece; a **workstream** when it spans several. If no suitable
+note exists yet, create it via `obsidian-project` first, then plan into it. Templates stay lean
+deliberately — these sections appear only when work is genuinely planned, so a one-line fix never
+opens with four empty headings.
+
+**A workstream-sized plan creates its tasks at the same time.** The workstream holds the shared goal,
+the decisions and the review, and has no `## Steps` of its own. Every unit of work becomes a task
+note from `Templates/Task.md` carrying `project` and `workstream`, with its own `## Context` and
+`## Steps`. Create them all while saving the plan — deferring them leaves the workstream as one
+opaque note, and a `type: note` standing in for the implementation detail is exactly the separate
+plan note this section rules out.
+
+**Name tasks for what they do** — `Bootstrap`, `Home Manager` — never `Phase 1 - …` or any other
+ordering prefix. The type is already in frontmatter, and prefixes collide across workstreams. When
+tasks are genuinely sequential, set `order: 0`, `order: 1` … and let the workstream's `## Tasks`
+block sort on it. Ordering is data, not a filename: renumbering beats renaming, which would need the
+CLI to keep links intact.
 
 Status flow: `draft` while planning and under review → `todo` once the gate passes → `in-progress`
-once work starts. **Revising a plan edits the same note.** Never create a second one.
+once work starts. Tasks start at `todo` alongside their workstream. **Revising a plan edits the same
+notes.** Never create a second one.
 
-Keep plans focused. When a rationale runs beyond a short paragraph, move it to a sibling
-`type: note` in the same project folder and link out, leaving the headline decision inline.
+Keep plans focused. When a **decision's rationale** runs beyond a short paragraph, move it to a
+sibling `type: note` and link out, leaving the headline decision under `## Decisions`. That is for
+rationale only — the steps of a piece of work always live on its task, never on a note.
 
 Record real decisions under `## Decisions`, including the ones *not* taken and why. That is the part
 worth having in six months; the steps will be obvious from the diff.
@@ -44,8 +59,8 @@ worth having in six months; the steps will be obvious from the diff.
 Never run it earlier. Reviewing a plan that is still churning wastes the pass, and its findings go
 stale before he has finished commenting.
 
-Use a read-only subagent (the `Plan` type), giving it the note being planned and the repo it
-targets. It checks the plan **against reality**, not for style:
+Use a read-only subagent (the `Plan` type), giving it every note being planned — the workstream and
+all its tasks — and the repo it targets. It checks the plan **against reality**, not for style:
 
 - Do the named files, functions and paths actually exist?
 - Are the steps executable in the order given?

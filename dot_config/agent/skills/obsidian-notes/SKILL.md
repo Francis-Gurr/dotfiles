@@ -43,7 +43,7 @@ One `status` vocabulary for every type: `draft` → `todo` → `in-progress` →
 | `area` | `status` |
 | `project` | `status`, `area` (link), `remote` |
 | `workstream` | `status`, `project` (link), `url` |
-| `task` | `status`, `project` (link), `workstream` (link), `url` |
+| `task` | `status`, `project` (link), `workstream` (link), `url`, `order` |
 | `note` | `project` (link), `source` |
 
 `remote` is the normalised git origin — `github.com/Francis-Gurr/dotfiles`, scheme and `.git`
@@ -56,6 +56,11 @@ empty stub notes. `url` is work-only, pointing at Jira.
 
 `project` is set on a task even when `workstream` is too. Mild duplication, but it lets Bases group
 by project without following a link it cannot traverse.
+
+`order` is an optional integer, set only when a workstream's tasks run in sequence. It exists so
+ordering never ends up in a filename: `Phase 1 - Bootstrap` collides across workstreams, repeats the
+`type` already in frontmatter, and needs a CLI rename to reorder. Omit it entirely when order does
+not matter.
 
 ## Writing notes
 

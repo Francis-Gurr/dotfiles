@@ -4,6 +4,11 @@ Shared instructions for every AI coding session on this machine. They live in
 `~/.config/agent/AGENTS.md`; each tool is pointed at this file (Claude Code via
 `~/.claude/CLAUDE.md`). Project-level instructions take precedence over anything here.
 
+**Editing this file or any skill:** these are chezmoi-managed. Edit the source in
+`~/.local/share/chezmoi/dot_config/agent/`, then `chezmoi apply`. Editing `~/.config/agent/` directly
+changes only this machine and is silently reverted by the next apply — the skills reference their own
+deployed paths, so this is an easy mistake to make.
+
 ## Git & commits
 
 - Commits: use the `commit` skill — it defines the message convention, how to validate

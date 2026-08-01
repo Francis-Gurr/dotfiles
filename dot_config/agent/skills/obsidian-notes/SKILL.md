@@ -86,6 +86,22 @@ note isn't in. A property no personal note could ever use does not belong on the
   projects and workstreams have no checkbox section at all.
 - Lists of tasks are **derived, never written by hand** — an embedded ` ```base ` block filtered on
   `workstream == this` cannot drift, because the table is the frontmatter.
+- Each level lists only what it owns. A **workstream** lists its tasks, sorted by `order`. A
+  **project** lists its workstreams plus any task with no workstream (`workstream.isEmpty()`) — never
+  tasks that belong to a workstream, since those are the workstream's to show.
+
+In a base view, `order:` is the **columns to display**, not the row sort. Sorting needs a separate
+`sort:` key, which the published syntax docs omit but the app supports:
+
+```yaml
+    order:            # columns, left to right
+      - order
+      - file.name
+      - status
+    sort:             # actual row order
+      - property: order
+        direction: ASC
+```
 
 Obsidian syntax worth knowing: `[[Note#Heading]]`, `[[Note|display]]`, `![[Note]]` to embed,
 `![[Active.base#View]]` to embed one view of a base, `> [!note]` callouts, `==highlight==`,

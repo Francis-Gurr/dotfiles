@@ -57,10 +57,14 @@ empty stub notes. `url` is work-only, pointing at Jira.
 `project` is set on a task even when `workstream` is too. Mild duplication, but it lets Bases group
 by project without following a link it cannot traverse.
 
-`order` is an optional integer, set only when a workstream's tasks run in sequence. It exists so
-ordering never ends up in a filename: `Phase 1 - Bootstrap` collides across workstreams, repeats the
-`type` already in frontmatter, and needs a CLI rename to reorder. Omit it entirely when order does
-not matter.
+`order` is an integer, set only when a workstream's tasks run in sequence. It exists so ordering
+never ends up in a filename: `Phase 1 - Bootstrap` collides across workstreams, repeats the `type`
+already in frontmatter, and needs a CLI rename to reorder.
+
+**Leave optional properties present but blank rather than deleting them** — `order`, `url`,
+`workstream` on an unattached task. A note should carry the same keys its template does, so the
+properties panel prompts you with the field instead of relying on you remembering it exists. Bases
+treats blank and absent identically, so this is for your benefit, not the queries'.
 
 ## Writing notes
 

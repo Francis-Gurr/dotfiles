@@ -13,6 +13,17 @@
           }
         ]
       }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r \".tool_input.file_path // \\\"\\\"\"); case \"$f\" in */memory/*) [ \"${f##*/}\" = \"MEMORY.md\" ] || printf \"%s\" '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"About to write auto-memory. Decide where this belongs before writing. Anything that should hold on every machine - working preferences, conventions, workflow rules - belongs in the chezmoi source at ~/.local/share/chezmoi/dot_config/agent/ followed by chezmoi apply: AGENTS.md for general preferences, an existing skill when it qualifies that skill behaviour, or a new skill for a distinct workflow. Auto-memory is machine-local and will not reach another workstation. Keep it here only when it is specific to this project on this machine. State which you chose.\"}}';; esac"
+          }
+        ]
+      }
     ]
   }
 }

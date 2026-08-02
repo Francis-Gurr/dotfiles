@@ -92,6 +92,12 @@ Tick `## Steps` as work proceeds — the checkboxes plus the task and workstream
 record of what is done and what is left. Keep no dated progress log: it would only restate what the
 statuses already show.
 
+**Done means pushed.** A ticked step, a task at `done` and a workstream at `done` all assert that the
+work behind them is committed and on the remote — not merely working in a local tree. Commit and push
+first, then tick the step or move the status. Where the work is finished but unpushed, say so and
+leave the box and the status alone. Code that exists only in a working tree can still be lost or
+rewritten, so a record that counts it as delivered is claiming something the remote cannot show.
+
 When resuming, read the in-progress task and its `## Notes` (Decisions, Review) **before doing
 anything**, and report where things stand from the statuses and the ticked steps. Do not restart from
 step one.

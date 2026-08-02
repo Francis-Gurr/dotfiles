@@ -73,6 +73,19 @@ have written to the wrong vault.
 Know its blind spot — it checks whether a plan is *true*, not whether it fits these conventions. It
 passed a plan whose tasks were all named `Phase N - …`, because nothing about naming was false.
 
+## Multiple workstreams
+
+Plan every workstream at once, all in `draft`, and have the review subagent check the whole plan
+together — cross-workstream contradictions only surface when the workstreams are read side by side.
+
+Promotion is separate from the review and runs in dependency order. Move a workstream to `todo` only
+when nothing it depends on — nothing earlier in its `order` — is still unfinished. A later workstream
+stays `draft` even after it has passed review, because finishing the earlier work can change it.
+
+So before picking up the next workstream, run the planning and review stage again for it: re-read it
+against what the finished work actually produced, amend it, then promote `draft` → `todo`. A
+workstream last reviewed against an unbuilt dependency has not really been checked.
+
 ## Resuming
 
 Tick `## Steps` as work proceeds — the checkboxes plus the task and workstream statuses are the whole

@@ -16,7 +16,8 @@ deployed paths, so this is an easy mistake to make.
 - PR/MR descriptions: use the `pr-description` skill.
 - Prefer small, focused commits over one large mixed commit.
 - Prefer rebasing and a linear branch history over merge commits.
-- Never create commits unless I explicitly ask; plain `git push` is fine.
+- Never create commits unless I explicitly ask. Stage the changes, then pause so I can review
+  what is staged; on my approval, commit and push together without asking again.
 - Never `git push --force`. Only `git push --force-with-lease` if I explicitly ask.
 
 ## Code review

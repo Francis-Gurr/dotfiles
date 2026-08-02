@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Use when creating a git commit or writing a commit message — the message convention (Conventional Commits + a leading gitmoji, subject line only), how to validate against commitlint, and the commit workflow. Does not push.
+description: Use when creating a git commit or writing a commit message — the message convention (Conventional Commits + a leading gitmoji, subject line only), how to validate against commitlint, and the commit workflow. Pauses for review before committing, then commits and pushes together.
 ---
 
 Write commits as Conventional Commits with a leading gitmoji, subject line only, validated
@@ -47,5 +47,8 @@ When asked to commit:
 2. If nothing is staged, stage the relevant changes yourself.
 3. If the changes are unrelated, stop and propose splitting them into separate commits
    instead of committing them together.
-4. Write the message per the convention above, validate against commitlint, then commit.
-   Never push unless I explicitly ask.
+4. Write the message per the convention above and validate it against commitlint.
+5. **Stop and show me the staged files and the proposed message.** Committing is the point
+   past which review costs a rewrite, so I review before it, not after.
+6. Once I approve, commit and push in one go — no second confirmation for the push. Never
+   `git push --force`; `--force-with-lease` needs my explicit approval each time.

@@ -1,6 +1,6 @@
 ---
 name: obsidian-plan
-description: Use when planning work into my Obsidian vault, updating progress, or resuming from a plan. Plans belong in the vault, not in the repo or ~/.claude/plans. Includes a mandatory review gate before any plan is approved.
+description: Use when planning work into my Obsidian vault, tracking status, or resuming from a plan. Plans belong in the vault, not in the repo or ~/.claude/plans. Includes a mandatory review gate before any plan is approved.
 ---
 
 Read `~/.config/agent/skills/obsidian-notes/SKILL.md` for vault conventions and
@@ -10,8 +10,8 @@ that logic here. Write with the `caveman` skill.
 ## A plan is a status, not a shape
 
 There are only areas, projects, workstreams and tasks, all with the same three sections. Approving a
-plan means writing its content into that structure — never adding `Approach`, `Decisions`, `Review`
-or `Progress` headings, never creating a standalone plan note.
+plan means writing its content into that structure — never adding `Approach`, `Decisions` or
+`Review` headings, never creating a standalone plan note.
 
 | Plan content | Lands in |
 |---|---|
@@ -19,7 +19,6 @@ or `Progress` headings, never creating a standalone plan note.
 | The actual work | `## Steps` on each task |
 | Decisions, including rejected ones | `## Notes`, at the level it applies to |
 | Review findings | `## Notes` of whatever was reviewed |
-| Progress | `## Notes`, dated |
 
 Plan a **task** when the work is one piece; a **workstream** when it spans several. Create the note
 via `obsidian-project` first if none exists.
@@ -74,13 +73,15 @@ have written to the wrong vault.
 Know its blind spot — it checks whether a plan is *true*, not whether it fits these conventions. It
 passed a plan whose tasks were all named `Phase N - …`, because nothing about naming was false.
 
-## Progress and resuming
+## Resuming
 
-Tick `## Steps` as work proceeds and add dated entries to `## Notes` saying what changed and what is
-left. Statuses say what is active; the note says why and where you stopped.
+Tick `## Steps` as work proceeds — the checkboxes plus the task and workstream statuses are the whole
+record of what is done and what is left. Keep no dated progress log: it would only restate what the
+statuses already show.
 
-When resuming, read the `## Notes` of the task and its workstream **before doing anything**, and
-report where things stand. Do not restart from step one.
+When resuming, read the in-progress task and its `## Notes` (Decisions, Review) **before doing
+anything**, and report where things stand from the statuses and the ticked steps. Do not restart from
+step one.
 
-Record anything learned that contradicts the plan. A plan that turned out wrong is more useful
-written down than quietly corrected.
+Record anything learned that contradicts the plan in `## Notes` — a decision that turned out wrong is
+more useful written down than quietly corrected.
